@@ -62,7 +62,7 @@ public class G4Diver extends Player {
 	@Override
 	public Direction getMove() {
 		// TODO Auto-generated method stub
-		System.out.println(" ->>> " + ClusteringStatergy.getInstance().toString());
+		System.out.println(" ->>>  " + ClusteringStatergy.getInstance().toString());
 		return null;
 	}
 
