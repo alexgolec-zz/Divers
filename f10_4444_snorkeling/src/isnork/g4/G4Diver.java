@@ -6,13 +6,17 @@ package isnork.g4;
 import isnork.g4.util.ClusteringStrategy;
 import isnork.g4.util.SeaBoard;
 import isnork.g4.util.Strategy;
+import isnork.sim.GameConfig;
 import isnork.sim.GameObject.Direction;
 import isnork.sim.Observation;
 import isnork.sim.Player;
+import isnork.sim.SeaLife;
 import isnork.sim.SeaLifePrototype;
 import isnork.sim.iSnorkMessage;
 
 import java.awt.geom.Point2D;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -29,6 +33,8 @@ public class G4Diver extends Player {
 		return "G4 Diver";
 	}
 
+	private Set<SeaLifePrototype> seaLifePrototypes;
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#newGame(java.util.Set, int, int, int, int)
 	 */
@@ -37,12 +43,33 @@ public class G4Diver extends Player {
 			int d, int r, int n) {
 		
 		SeaBoard  seaBoard = new SeaBoard(seaLifePossibilites, d);
-		
 		Strategy statergy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
-		
+
+		seaLifePrototypes = seaLifePossibilites;
+
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 		
 		
+	}
+	
+	private SeaLifePrototype getProtoFromName(String name) {
+		for (SeaLifePrototype s: seaLifePrototypes) {
+			if (s.getName().compareTo(name) == 0) {
+				return s;
+			}
+		}
+		return null;
+	}
+	
+	private Set<SeaLifePrototype> getSpeciesFromObservations(Collection<Observation> set) {
+		HashSet<SeaLifePrototype> ret = new HashSet<SeaLifePrototype>();
+		for (Observation o: set) {
+			SeaLifePrototype proto = getProtoFromName(o.getName());
+			if (proto != null) {
+				ret.add(proto);
+			}
+		}
+		return ret;
 	}
 	
 	/* (non-Javadoc)
@@ -52,12 +79,10 @@ public class G4Diver extends Player {
 	public String tick(Point2D myPosition, Set<Observation> whatYouSee,
 			Set<iSnorkMessage> incomingMessages,
 			Set<Observation> playerLocations) {
-		System.out.println(this);
-		for (Observation o: whatYouSee) {
-			int id = o.getId();
-			if (id > 0) {
-				System.out.println(id + " - " + o.getName() + " - " + o.happiness());
-			}
+		Set<SeaLifePrototype> visibleSpecies = getSpeciesFromObservations(whatYouSee); 
+
+		for (SeaLifePrototype s: visibleSpecies) {
+			System.out.println(s.getName() + " - " + s.getHappiness());
 		}
 		return null;
 	}
@@ -68,7 +93,7 @@ public class G4Diver extends Player {
 	@Override
 	public Direction getMove() {
 		// TODO Auto-generated method stub
-		System.out.println(ClusteringStrategy.getInstance().toString());
+		//System.out.println(ClusteringStrategy.getInstance().toString());
 		return null;
 	}
 
