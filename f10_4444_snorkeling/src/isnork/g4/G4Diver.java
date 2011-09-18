@@ -20,7 +20,7 @@ import java.util.Set;
  *
  */
 public class G4Diver extends Player {
-
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#getName()
 	 */
@@ -44,7 +44,7 @@ public class G4Diver extends Player {
 		
 		
 	}
-
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#tick(java.awt.geom.Point2D, java.util.Set, java.util.Set, java.util.Set)
 	 */
@@ -52,7 +52,13 @@ public class G4Diver extends Player {
 	public String tick(Point2D myPosition, Set<Observation> whatYouSee,
 			Set<iSnorkMessage> incomingMessages,
 			Set<Observation> playerLocations) {
-		// TODO Auto-generated method stub
+		System.out.println(this);
+		for (Observation o: whatYouSee) {
+			int id = o.getId();
+			if (id > 0) {
+				System.out.println(id + " - " + o.getName() + " - " + o.happiness());
+			}
+		}
 		return null;
 	}
 
@@ -60,7 +66,7 @@ public class G4Diver extends Player {
 	 * @see isnork.sim.Player#getMove()
 	 */
 	@Override
-	public Direction getMove( ) {
+	public Direction getMove() {
 		// TODO Auto-generated method stub
 		System.out.println(ClusteringStatergy.getInstance().toString());
 		return null;
