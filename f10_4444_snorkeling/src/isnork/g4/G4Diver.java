@@ -60,7 +60,7 @@ public class G4Diver extends Player {
 	 * @see isnork.sim.Player#getMove()
 	 */
 	@Override
-	public Direction getMove() {
+	public Direction getMove( ) {
 		// TODO Auto-generated method stub
 		System.out.println(" ->>>  " + ClusteringStatergy.getInstance().toString());
 		return null;
