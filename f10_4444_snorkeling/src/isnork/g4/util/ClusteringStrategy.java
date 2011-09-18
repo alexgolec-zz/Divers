@@ -4,9 +4,9 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ClusteringStatergy {
+public class ClusteringStrategy {
 
-	private static final ClusteringStatergy CLUSTERING_STATERGY = new ClusteringStatergy();
+	private static final ClusteringStrategy CLUSTERING_STATERGY = new ClusteringStrategy();
 	
 	Map<Integer, Cluster> clusters = new HashMap<Integer, Cluster>();
 	int numberOfClusters = -1;
@@ -32,10 +32,10 @@ public class ClusteringStatergy {
 		this.maxSizeOfCluster = maxSizeOfCluster;
 	}
 
-	private ClusteringStatergy(){
+	private ClusteringStrategy(){
 	}
 	
-	public static ClusteringStatergy getInstance(){
+	public static ClusteringStrategy getInstance(){
 		return CLUSTERING_STATERGY;
 	}
 	

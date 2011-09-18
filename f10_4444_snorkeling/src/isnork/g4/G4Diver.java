@@ -3,9 +3,9 @@
  */
 package isnork.g4;
 
-import isnork.g4.util.ClusteringStatergy;
+import isnork.g4.util.ClusteringStrategy;
 import isnork.g4.util.SeaBoard;
-import isnork.g4.util.Statergy;
+import isnork.g4.util.Strategy;
 import isnork.sim.GameObject.Direction;
 import isnork.sim.Observation;
 import isnork.sim.Player;
@@ -38,9 +38,9 @@ public class G4Diver extends Player {
 		
 		SeaBoard  seaBoard = new SeaBoard(seaLifePossibilites, d);
 		
-		Statergy statergy = new Statergy(seaLifePossibilites, penalty, d, r, n, random);
+		Strategy statergy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
 		
-		ClusteringStatergy.getInstance().initialize(d, n, getId());
+		ClusteringStrategy.getInstance().initialize(d, n, getId());
 		
 		
 	}
@@ -62,7 +62,7 @@ public class G4Diver extends Player {
 	@Override
 	public Direction getMove( ) {
 		// TODO Auto-generated method stub
-		System.out.println(ClusteringStatergy.getInstance().toString());
+		System.out.println(ClusteringStrategy.getInstance().toString());
 		return null;
 	}
 
