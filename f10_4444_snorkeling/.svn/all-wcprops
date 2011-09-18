@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 42
+/svn/!svn/ver/31/trunk/f10_4444_snorkeling
+END
+.classpath
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/.classpath
+END
+.project
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/.project
+END
+isnork.xml
+K 25
+svn:wc:ra_dav:version-url
+V 53
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/isnork.xml
+END
+xml-apis.jar
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/xml-apis.jar
+END
+xercesImpl.jar
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/xercesImpl.jar
+END
+playerClasses.txt
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/playerClasses.txt
+END
+xercesSamples.jar
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/xercesSamples.jar
+END
+log4j-1.2.15.jar
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/!svn/ver/32/trunk/f10_4444_snorkeling/log4j-1.2.15.jar
+END

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_20" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="color"> 
+   <object class="java.awt.Color"> 
+    <int>30</int> 
+    <int>40</int> 
+    <int>100</int> 
+    <int>255</int> 
+   </object> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Lazy Lobster</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Amputation Clam</string> 
+  </void> 
+ </object> 
+</java> 
