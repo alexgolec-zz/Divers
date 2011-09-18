@@ -2,7 +2,6 @@ package isnork.sim;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
-import java.util.HashSet;
 
 public abstract class GameObject {
 	protected double x;

@@ -11,20 +11,13 @@ import isnork.sim.GameObject.Direction;
 import isnork.sim.ui.GUI;
 import isnork.sim.ui.Text;
 
-import java.awt.Point;
-import java.awt.geom.Line2D;
 import java.awt.geom.Point2D;
 import java.io.File;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.Set;
 
 import org.apache.log4j.Logger;
 

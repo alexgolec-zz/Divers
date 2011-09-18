@@ -1,17 +1,16 @@
 package isnork.g0;
 
 
+import isnork.sim.GameConfig;
+import isnork.sim.GameObject.Direction;
+import isnork.sim.Observation;
+import isnork.sim.Player;
+import isnork.sim.SeaLifePrototype;
+import isnork.sim.iSnorkMessage;
+
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Set;
-
-import isnork.sim.GameConfig;
-import isnork.sim.Observation;
-import isnork.sim.Player;
-import isnork.sim.SeaLife;
-import isnork.sim.SeaLifePrototype;
-import isnork.sim.iSnorkMessage;
-import isnork.sim.GameObject.Direction;
 
 
 

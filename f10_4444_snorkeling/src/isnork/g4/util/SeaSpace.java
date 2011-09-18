@@ -5,8 +5,6 @@ import isnork.sim.SeaLifePrototype;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 
-import org.apache.log4j.Logger;
-
 public class SeaSpace {
 
 	private ArrayList<SeaLifePrototype> occupiedby;

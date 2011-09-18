@@ -3,17 +3,17 @@
  */
 package isnork.g4;
 
-import java.awt.geom.Point2D;
-import java.util.Set;
-
 import isnork.g4.util.ClusteringStatergy;
 import isnork.g4.util.SeaBoard;
 import isnork.g4.util.Statergy;
+import isnork.sim.GameObject.Direction;
 import isnork.sim.Observation;
 import isnork.sim.Player;
 import isnork.sim.SeaLifePrototype;
 import isnork.sim.iSnorkMessage;
-import isnork.sim.GameObject.Direction;
+
+import java.awt.geom.Point2D;
+import java.util.Set;
 
 /**
  * @author Lenovo
@@ -60,9 +60,9 @@ public class G4Diver extends Player {
 	 * @see isnork.sim.Player#getMove()
 	 */
 	@Override
-	public Direction getMove() {
+	public Direction getMove( ) {
 		// TODO Auto-generated method stub
-		System.out.println(" ->>>  " + ClusteringStatergy.getInstance().toString());
+		System.out.println(ClusteringStatergy.getInstance().toString());
 		return null;
 	}
 

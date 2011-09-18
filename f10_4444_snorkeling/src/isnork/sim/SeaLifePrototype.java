@@ -1,6 +1,5 @@
 package isnork.sim;
 
-import java.awt.Color;
 
 public class SeaLifePrototype implements Cloneable{
 	protected int speed;
