@@ -6,9 +6,6 @@ import isnork.sim.GameEngine;
 import java.awt.geom.Point2D;
 
 public class EndGameStrategy {
-
-	GameEngine gameEngine = new GameEngine();
-	GameConfig gameConfig = new GameConfig();
 	
 	public double distanceFromBoat(Point2D myPosition){
 //		System.out.println("distanceFromBoat - " + myPosition.getX() + " , " + myPosition.getY());
@@ -32,10 +29,10 @@ public class EndGameStrategy {
 		return diagonalSteps*3 + axialSteps*2;
 	}
 	
-	public double allowedReturnTimeRadius(double safetyMargin){
+	public double allowedReturnTimeRadius(double safetyMargin, Strategy strategy){
 		
-		int currentRound = gameEngine.getCurrentRound();
-		int maxRounds = 480;
+		currentRound = strategy.getCurrentRound();
+		maxRounds = strategy.getMaxRound();
 		int roundsRemaining = maxRounds - currentRound;
 		
 		// returns the number of rounds remaining, less a safety margin
