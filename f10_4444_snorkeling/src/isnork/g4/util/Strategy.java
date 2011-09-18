@@ -5,9 +5,9 @@ import isnork.sim.SeaLifePrototype;
 import java.util.Random;
 import java.util.Set;
 
-public class Statergy {
+public class Strategy {
 	
-	public Statergy(Set<SeaLifePrototype> seaLifePossibilites, int penalty,
+	public Strategy(Set<SeaLifePrototype> seaLifePossibilites, int penalty,
 			int d, int r, int n, Random randomSeed) {
 		
 		
