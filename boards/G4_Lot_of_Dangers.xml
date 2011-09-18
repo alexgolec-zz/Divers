@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_24" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>shark.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>250</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>50</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>40</int> 
+  </void> 
+  <void property="name"> 
+   <string>Shark</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>pirate.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>500</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>30</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>25</int> 
+  </void> 
+  <void property="name"> 
+   <string>pirate</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>nemo.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>10000</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Nemo</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+</java> 

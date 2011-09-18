@@ -1,0 +1,197 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_22" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>lobster.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>15</int> 
+  </void> 
+  <void property="name"> 
+   <string>Lazy Lobster</string> 
+  </void> 
+  <void property="speed"> 
+   <int>10</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>nemo.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>50</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Nemo</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>crab.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>15</int> 
+  </void> 
+  <void property="name"> 
+   <string>Clamps the Crab</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>Dolphin.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>15</int> 
+  </void> 
+  <void property="name"> 
+   <string>Flipper</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>jaws.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>40</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jaws</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>algae.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>40</int> 
+  </void> 
+  <void property="name"> 
+   <string>Algae</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>coral.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="name"> 
+   <string>Coral</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>jellyfish.png</string> 
+  </void> 
+ <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>15</int> 
+  </void> 
+  <void property="name"> 
+   <string>JELLYFISH</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>octopus.png</string> 
+  </void> 
+ <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>15</int> 
+  </void> 
+  <void property="name"> 
+   <string>Octopussy</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>oyster.png</string> 
+  </void> 
+<void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>15</int> 
+  </void> 
+  <void property="name"> 
+   <string>Oyster</string> 
+  </void> 
+ </object> 
+</java> 

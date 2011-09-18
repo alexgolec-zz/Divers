@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_24" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>algae.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>50</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>50</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>10</int> 
+  </void> 
+  <void property="name"> 
+   <string>algae</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>scallop.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>99</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>10</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="name"> 
+   <string>scallop</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>shark.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>300</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="name"> 
+   <string>shark</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>octopus.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>500</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>10</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>octopus</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>blinky.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>800</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>blinky</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+</java> 

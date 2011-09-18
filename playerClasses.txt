@@ -1,0 +1,2 @@
+isnork.g4.G4Diver
+isnork.g0.DumbPlayer0

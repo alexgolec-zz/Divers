@@ -1,0 +1,2303 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_22" class="java.beans.XMLDecoder">
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Marco Grant</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Peter Myers</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Robert Wright</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Erin Hicks</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Amy Lucas</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Nicholas Moreno</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Victoria Tucker</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Trinity Mcdonald</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Bryan Sandoval</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Erik Bates</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Margaret Welch</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Trenton Clark</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Paul Young</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Josiah Thomas</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Andres Banks</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Angel Stephens</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Shawn Wallace</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Oscar Andrews</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Natalia Matthews</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Andrea Mills</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Ashton Garza</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jason Reyes</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Micah Kim</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jesus Jones</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Grant Turner</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Vincent Peters</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Raymond Ortiz</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Richard Wood</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Antonio Silva</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Madelyn Reid</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Amy Weaver</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Laura Mccoy</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Kimberly Fowler</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Marco Weber</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Collin Lane</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Edgar Baker</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Noah Ortega</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Aiden Burke</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Sophia Hunt</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Megan Chapman</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Ellie Russell</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Braden Reyes</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Kiara Delgado</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Alan Crawford</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Angelina Sanchez</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Mark Hernandez</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Kathryn Bell</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Samantha Harris</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Charlotte Lynch</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Courtney Boyd</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jenna Reid</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Victor Pearson</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Eva Butler</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Makenzie Evans</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Garrett Howard</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jose Young</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Mario Warren</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Ruby Howard</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Savannah Ferguson</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Isabelle Cox</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Victoria Valdez</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jacob Payne</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Molly Hansen</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jake Grant</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Eva Carlson</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Peter Oliver</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jesus George</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Cody Gonzalez</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Christian Carroll</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Riley Anderson</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Edwin Lewis</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Audrey Rodriguez</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Dominic Henry</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Sara Smith</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jonathan Peters</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Trevor Crawford</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Gage Brewer</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Mariah Johnson</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Gianna Butler</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Ashton Richardson</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jesus Soto</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Angelica Fields</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Gracie Richardson</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Richard Perry</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>0</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Skylar Soto</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Brooklyn Mendoza</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Ayden Weaver</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Aiden Bradley</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Alicia White</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Kelsey Aguilar</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="name"> 
+   <string>Donovan Hunter</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>2</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jocelyn Mcdonald</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Brooklyn Tucker</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Mackenzie Allen</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>3</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Giovanni Ramos</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Aaron Lucas</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>4</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>0</int> 
+  </void> 
+  <void property="name"> 
+   <string>Lillian Boyd</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Crystal Willis</string> 
+  </void> 
+  <void property="speed"> 
+   <int>0</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="name"> 
+   <string>Riley Long</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Victoria Holland</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int>
+  </void> 
+  <void property="dangerous"> 
+   <boolean>false</boolean> 
+  </void> 
+ </object>
+</java>
