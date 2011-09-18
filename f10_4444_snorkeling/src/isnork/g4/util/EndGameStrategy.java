@@ -28,17 +28,5 @@ public class EndGameStrategy {
 		// diagonal steps take 3 turns, axial steps take 2
 		return diagonalSteps*3 + axialSteps*2;
 	}
-	
-	public double allowedReturnTimeRadius(double safetyMargin, Strategy strategy){
-		
-		currentRound = strategy.getCurrentRound();
-		maxRounds = strategy.getMaxRound();
-		int roundsRemaining = maxRounds - currentRound;
-		
-		// returns the number of rounds remaining, less a safety margin
-		// Returns 0.0 when the margin is greater than the remaining time
-		return Math.max(0.0, (double)(roundsRemaining) - safetyMargin);
-	}
-	
 }
 
