@@ -42,6 +42,8 @@ public class G4Diver extends Player {
 	private MessageMap messageMap;
 	/** Mapping from name to SeaLifePrototype. This field is meant to be read-only... */
 	private static Hashtable<String, SeaLifePrototype> species = null;
+	/** Set of IDs of stationary objects that were already reported. */
+	private Set<Integer> reportedStationaries;
 	
 	/**
 	 * Build the set of name to prototype mappings
@@ -63,6 +65,7 @@ public class G4Diver extends Player {
 		if (species == null) {
 			constructPossibilitiesMap(seaLifePossibilites);
 		}
+		reportedStationaries = new HashSet<Integer>();
 		
 		seaBoard = new SeaBoard(seaLifePossibilites, d);
 		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
@@ -86,6 +89,45 @@ public class G4Diver extends Player {
 	}
 	
 	/**
+	 * Get a set of observations and filter out the players, leaving just the 
+	 * creatures. 
+	 * @param observations the set of observations
+	 * @return the set of observations without the players
+	 */
+	private Set<Observation> creaturesFilter(Set<Observation> observations) {
+		HashSet<Observation> ret = new HashSet<Observation>();
+		
+		for (Observation o: observations) {
+			if (o.getId() > 0) {
+				ret.add(o);
+			}
+		}
+		
+		return ret;
+	}
+	
+	private Observation moreValuableObservation(Observation o1, Observation o2) {
+		if (messageMap.moreValuable(o1.getName(), o2.getName()) == o1.getName()) {
+			return o1;
+		} else {
+			return o2;
+		}
+	}
+	
+	private Observation getMostValuable(Collection<Observation> observations) {
+		Observation mostValuable = null;
+		
+		for (Observation s: observations) {
+			if (mostValuable == null) {
+				mostValuable = s;
+				continue;
+			}
+			mostValuable = moreValuableObservation(mostValuable, s);
+		}
+		return mostValuable;
+	}
+	
+	/**
 	 * Return the name of the most valuable species. This is where the bulk of 
 	 * the communication dispatching logic will want to live.
 	 * TODO Put it here. 
@@ -93,17 +135,33 @@ public class G4Diver extends Player {
 	 * @return the name of the most valuable species, or null if there is 
 	 * nothing to report
 	 */
-	private String chooseSpeciesToReport(Collection<SeaLifePrototype> species) {
-		String mostValuable = null;
+	private String chooseSpeciesToReport(Set<Observation> observations) {
+		HashSet<Observation> stationaries = new HashSet<Observation>();
+		HashSet<Observation> mobiles = new HashSet<Observation>();
 		
-		for (SeaLifePrototype s: species) {
-			if (mostValuable == null) {
-				mostValuable = s.getName();
+		// Partition the list into stationary and nonstationary lists. Also 
+		// discard observations of stationaries we've already seen. 
+		for (Observation s: observations) {
+			if (reportedStationaries.contains(s.getId())) {
 				continue;
 			}
-			mostValuable = messageMap.moreValuable(mostValuable, s.getName());
+			if (G4Diver.getProtoFromName(s.getName()).getSpeed() == 0) {
+				stationaries.add(s);
+			} else {
+				mobiles.add(s);
+			}
 		}
-		return mostValuable;
+		
+		Observation mostValuable = getMostValuable(stationaries);
+		if (mostValuable == null) {
+			mostValuable = getMostValuable(mobiles);
+		}
+		
+		if (mostValuable == null) {
+			return null;
+		} else {
+			return mostValuable.getName();
+		}
 	}
 	
 	/**
@@ -135,9 +193,10 @@ public class G4Diver extends Player {
 		
 		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		
-		Set<SeaLifePrototype> visibleSpecies = getSpeciesFromObservations(whatYouSee); 
-		
-		String speciesToReport = chooseSpeciesToReport(visibleSpecies);
+		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
+		Set<SeaLifePrototype> visibleSpecies = getSpeciesFromObservations(justCreatures); 
+
+		String speciesToReport = chooseSpeciesToReport(justCreatures);
 		String message = messageMap.get(speciesToReport);
 		if (message != null) {
 			System.out.println("Reporting species " + speciesToReport + " (" + message + ")");

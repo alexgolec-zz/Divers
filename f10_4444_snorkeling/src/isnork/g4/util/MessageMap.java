@@ -30,7 +30,8 @@ public class MessageMap {
 	 * @param c
 	 */
 	public MessageMap(Collection<SeaLifePrototype> c) {
-		table = new Hashtable<String, String>(c.size());
+		table = new Hashtable<String, String>();
+		reverse = new Hashtable<String, HashSet<String>>();
 		
 		ArrayList<SeaLifePrototype> lst = new ArrayList<SeaLifePrototype>(c);
 		Collections.sort(lst, new SeaLifePrototypeComparator());
