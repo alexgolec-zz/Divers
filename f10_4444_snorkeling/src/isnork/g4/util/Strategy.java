@@ -66,7 +66,7 @@ public class Strategy {
 		currentDiverId = diverId;
 		EndGameStrategy endGameStrategy = new EndGameStrategy();
 		
-		if(endGameStrategy.allowedReturnTimeRadius((double)40, this) < endGameStrategy.fastestReturnTime(myPosition)){
+		if(endGameStrategy.allowedReturnTimeRadius((double)20, this) <= endGameStrategy.fastestReturnTime(myPosition)){
 			System.out.println(" -endGameStrategy.allowedReturnTimeRadius- ");
 			return moveTowardBoat();
 		}
@@ -80,13 +80,29 @@ public class Strategy {
 		double new_x, new_y;
 		
 		// the absolute values of x and y are reduced by 1.
+		// System.out.println("old x, y: " + x +  ", " + y);
+		new_x = x;
+		new_y = y;
+		if (x > 0) new_x = x - 1;
+		if (x < 0) new_x = x + 1;
+		if (y > 0) new_y = y - 1;
+		if (y < 0) new_y = y + 1;
+		// System.out.println("new x, y: " + new_x +  ", " + new_y);
+		
+		/*
+		new_x = (x/Math.abs(x))*(Math.abs(x)-1);
+		new_y = (y/Math.abs(y))*(Math.abs(y)-1);
+		*/
+		
+		/*
 		new_x = x==0?0:(x/Math.abs(x))*(Math.abs(x)-1);
 		new_y = y==0?0:(y/Math.abs(y))*(Math.abs(y)-1);
-		
+		*/
 		//TODO try it with newPos as 0,0
+		
 		Point2D newPos = new Point2D.Double(new_x, new_y);
 		
-		System.out.println(myPosition + "to" + newPos +  " ------ " + findDirection(myPosition, newPos));
+		// System.out.println(myPosition + "to" + newPos +  " ------ " + findDirection(myPosition, newPos));
 		return findDirection(myPosition, newPos);
 	}
 	
