@@ -20,8 +20,8 @@ public class EndGameStrategy {
 		// the fastest way back to the boat is to travel diagonally to a primary axis, and then to follow
 		// that axis to the boat (In the same number of turns divers can also to travel parallel 
 		// to an axis until they reach a primary diagonal and to take this primary diagonal to the boat) 
-		double diagonalSteps = Math.min(x, y);
-		double axialSteps = Math.max(x, y) - Math.min(x, y);
+		double diagonalSteps = Math.min(Math.abs(x), Math.abs(y));
+		double axialSteps = Math.max(Math.abs(x), Math.abs(y)) - Math.min(Math.abs(x), Math.abs(y));
 		// diagonal steps take 3 turns, axial steps take 2
 		return diagonalSteps*3 + axialSteps*2;
 	}
@@ -34,7 +34,8 @@ public class EndGameStrategy {
 		
 		// returns the number of rounds remaining, less a safety margin
 		// Returns 0.0 when the margin is greater than the remaining time
-		return Math.max(0.0, (double)(roundsRemaining) - safetyMargin);
+		// return Math.max(0.0, (double)(roundsRemaining) - safetyMargin);
+		return (double)(roundsRemaining) - safetyMargin;
 	}
 	
 }
