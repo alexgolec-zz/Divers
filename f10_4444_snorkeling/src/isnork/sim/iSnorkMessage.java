@@ -19,34 +19,34 @@ public class iSnorkMessage {
 	{
 		if(msg.length() != 1)
 			System.err.println("iSnork Received invalid message: " + msg);
-		else if(msg.toLowerCase() != "a" &&
-				msg.toLowerCase() != "b" &&
-				msg.toLowerCase() != "c" &&
-				msg.toLowerCase() != "d" &&
-				msg.toLowerCase() != "e" &&
-				msg.toLowerCase() != "f" &&
-				msg.toLowerCase() != "g" &&
-				msg.toLowerCase() != "h" &&
-				msg.toLowerCase() != "i" &&
-				msg.toLowerCase() != "j" &&
-				msg.toLowerCase() != "k" &&
-				msg.toLowerCase() != "l" &&
-				msg.toLowerCase() != "m" &&
-				msg.toLowerCase() != "n" &&
-				msg.toLowerCase() != "o" &&
-				msg.toLowerCase() != "p" &&
-				msg.toLowerCase() != "q" &&
-				msg.toLowerCase() != "r" &&
-				msg.toLowerCase() != "s" &&
-				msg.toLowerCase() != "t" &&
-				msg.toLowerCase() != "u" &&
-				msg.toLowerCase() != "v" &&
-				msg.toLowerCase() != "w" &&
-				msg.toLowerCase() != "x" &&
-				msg.toLowerCase() != "y" &&
-				msg.toLowerCase() != "z"
+		else if(!msg.toLowerCase().equals("a") &&
+				!msg.toLowerCase().equals("b") &&
+				!msg.toLowerCase().equals("c") &&
+				!msg.toLowerCase().equals("d") &&
+				!msg.toLowerCase().equals("e") &&
+				!msg.toLowerCase().equals("f") &&
+				!msg.toLowerCase().equals("g") &&
+				!msg.toLowerCase().equals("h") &&
+				!msg.toLowerCase().equals("i") &&
+				!msg.toLowerCase().equals("j") &&
+				!msg.toLowerCase().equals("k") &&
+				!msg.toLowerCase().equals("l") &&
+				!msg.toLowerCase().equals("m") &&
+				!msg.toLowerCase().equals("n") &&
+				!msg.toLowerCase().equals("o") &&
+				!msg.toLowerCase().equals("p") &&
+				!msg.toLowerCase().equals("q") &&
+				!msg.toLowerCase().equals("r") &&
+				!msg.toLowerCase().equals("s") &&
+				!msg.toLowerCase().equals("t") &&
+				!msg.toLowerCase().equals("u") &&
+				!msg.toLowerCase().equals("v") &&
+				!msg.toLowerCase().equals("w") &&
+				!msg.toLowerCase().equals("x") &&
+				!msg.toLowerCase().equals("y") &&
+				!msg.toLowerCase().equals("z")
 		)
-			System.err.println("iSnork Received invalid message: " + msg);
+			System.err.println("iSnork Received invalid message: \"" + msg + "\"");
 		else
 			this.msg= msg.toLowerCase();
 	}
