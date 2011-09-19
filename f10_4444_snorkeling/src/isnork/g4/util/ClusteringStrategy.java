@@ -6,7 +6,7 @@ import java.util.Map;
 
 public class ClusteringStrategy {
 
-	private static final ClusteringStrategy CLUSTERING_STATERGY = new ClusteringStrategy();
+	private static final ClusteringStrategy CLUSTERING_STRATEGY = new ClusteringStrategy();
 	
 	Map<Integer, Cluster> clusters = new HashMap<Integer, Cluster>();
 	int numberOfClusters = -1;
@@ -36,7 +36,7 @@ public class ClusteringStrategy {
 	}
 	
 	public static ClusteringStrategy getInstance(){
-		return CLUSTERING_STATERGY;
+		return CLUSTERING_STRATEGY;
 	}
 	
 	public void initialize(int d, int n, int playerId){
@@ -52,7 +52,6 @@ public class ClusteringStrategy {
 		if(cluster != null){
 			cluster.addDiver(diverId, clusterId);
 		} else {
-			System.out.println("creating new custer with " + clusterId + " - " + diverId);
 			clusters.put(clusterId, new Cluster(diverId, Math.abs(diverId)%numberOfClusters));
 		}
 	}
@@ -61,7 +60,7 @@ public class ClusteringStrategy {
 	public String toString() {
 		System.out.println(" mmmm " + clusters.size());
 		StringBuilder sb = new StringBuilder();
-		sb.append("CLUSTERING STATERGY - toString ------ \n");
+		sb.append("CLUSTERING_STRATEGY - toString ------ \n");
 		int refClusterId;
 		Cluster refCluster = null;
 		Iterator<Integer> iteratorClusterId = clusters.keySet().iterator();

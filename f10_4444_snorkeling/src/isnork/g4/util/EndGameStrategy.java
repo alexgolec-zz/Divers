@@ -1,8 +1,5 @@
 package isnork.g4.util;
 
-import isnork.sim.GameConfig;
-import isnork.sim.GameEngine;
-
 import java.awt.geom.Point2D;
 
 public class EndGameStrategy {
@@ -31,8 +28,8 @@ public class EndGameStrategy {
 	
 	public double allowedReturnTimeRadius(double safetyMargin, Strategy strategy){
 		
-		currentRound = strategy.getCurrentRound();
-		maxRounds = strategy.getMaxRound();
+		int currentRound = strategy.getCurrentRound();
+		int maxRounds = strategy.getMaxRounds();
 		int roundsRemaining = maxRounds - currentRound;
 		
 		// returns the number of rounds remaining, less a safety margin

@@ -21,6 +21,9 @@ import java.util.Set;
  */
 public class G4Diver extends Player {
 
+	Strategy strategy = null;
+	SeaBoard seaBoard = null;
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#getName()
 	 */
@@ -36,12 +39,9 @@ public class G4Diver extends Player {
 	public void newGame(Set<SeaLifePrototype> seaLifePossibilites, int penalty,
 			int d, int r, int n) {
 		
-		SeaBoard  seaBoard = new SeaBoard(seaLifePossibilites, d);
-		
-		Strategy statergy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
-		
+		seaBoard = new SeaBoard(seaLifePossibilites, d);
+		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
-		
 		
 	}
 
@@ -52,7 +52,9 @@ public class G4Diver extends Player {
 	public String tick(Point2D myPosition, Set<Observation> whatYouSee,
 			Set<iSnorkMessage> incomingMessages,
 			Set<Observation> playerLocations) {
-		// TODO Auto-generated method stub
+		
+		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
+		
 		return null;
 	}
 
@@ -60,10 +62,12 @@ public class G4Diver extends Player {
 	 * @see isnork.sim.Player#getMove()
 	 */
 	@Override
-	public Direction getMove( ) {
-		// TODO Auto-generated method stub
-		System.out.println(ClusteringStrategy.getInstance().toString());
-		return null;
+	public Direction getMove() {
+//		System.out.println(ClusteringStrategy.getInstance().toString());
+		System.out.println(" ------------------------- " + getId());
+		Direction d = strategy.getMove(getId());
+		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
+		return d;
 	}
 
 }
