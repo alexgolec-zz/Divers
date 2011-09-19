@@ -7,11 +7,16 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.Set;
 
 public class MessageMap {
 
+	/** Mapping from species to message. */
 	private Hashtable<String, String> table;
+	/** Mapping from message to species. */
+	private Hashtable<String, HashSet<String> > reverse;
 	
 	private class SeaLifePrototypeComparator implements Comparator<SeaLifePrototype>{
 		@Override
@@ -31,12 +36,25 @@ public class MessageMap {
 		Collections.sort(lst, new SeaLifePrototypeComparator());
 		char currentCharacter = 'a';
 		for (SeaLifePrototype p: lst) {
-			table.put(p.getName(), String.valueOf(currentCharacter));
+			String message = String.valueOf(currentCharacter);
+			table.put(p.getName(), message);
 			System.out.println("Species " + p.getName() + " (" + 
 					p.getHappiness() + ") will be reported by " + currentCharacter);
 			
 			if (currentCharacter != 'z') {
 				currentCharacter++;
+				HashSet<String> set = new HashSet<String>();
+				set.add(p.getName());
+				reverse.put(message, set);
+			} else {
+				HashSet<String> set;
+				try {
+					set = reverse.get(message);
+				} catch (NullPointerException e) {
+					set = new HashSet<String>(2);
+					reverse.put(message, set);
+				}
+				set.add(p.getName());
 			}
 		}
 	}
@@ -56,6 +74,20 @@ public class MessageMap {
 			// There is no reason why this should be any length besides one. 
 			assert(ret.length() == 1);
 			return ret;
+		} catch (NullPointerException e) {
+			return null;
+		}
+	}
+	
+	/**
+	 * Take a message and resolve it to a 
+	 * @param message
+	 * @return
+	 */
+	public Set<String> decode(String message) {
+		assert(reverse != null);
+		try {
+			return reverse.get(message);
 		} catch (NullPointerException e) {
 			return null;
 		}
