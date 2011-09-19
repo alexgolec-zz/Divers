@@ -22,6 +22,7 @@ public class Strategy {
 	private Point2D myPosition = null;
 	private boolean moveAwayFromBoat = true;
 	private boolean moveSpirally = false;
+	private DangerAvoidanceStrategy dangerAvoidanceStrategy;
 	
 	public int getCurrentRound() {
 		return currentRound;
@@ -59,19 +60,27 @@ public class Strategy {
 		currentRound++;
 		currentDiverId = diverId;
 		this.myPosition = myPosition;
+		dangerAvoidanceStrategy = new DangerAvoidanceStrategy(myPosition, whatYouSee);
 	}
 	
 	
 	public Direction getMove(int diverId){ 
 		currentDiverId = diverId;
 		EndGameStrategy endGameStrategy = new EndGameStrategy();
+		Direction nextMove;
 		
-		if(endGameStrategy.allowedReturnTimeRadius((double)20, this) <= endGameStrategy.fastestReturnTime(myPosition)){
+		if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(myPosition)){
 			System.out.println(" -endGameStrategy.allowedReturnTimeRadius- ");
-			return moveTowardBoat();
+			nextMove = moveTowardBoat();
+			System.out.println(nextMove + "nextMove1");
+			nextMove = dangerAvoidanceStrategy.avoidDanger(nextMove);
+			return nextMove;
 		}
 		
-		return spiralMove();
+		nextMove = spiralMove();
+		nextMove = dangerAvoidanceStrategy.avoidDanger(nextMove);
+		
+		return nextMove;
 	}
 	
 	private Direction moveTowardBoat(){
@@ -80,24 +89,10 @@ public class Strategy {
 		double new_x, new_y;
 		
 		// the absolute values of x and y are reduced by 1.
-		// System.out.println("old x, y: " + x +  ", " + y);
-		new_x = x;
-		new_y = y;
-		if (x > 0) new_x = x - 1;
-		if (x < 0) new_x = x + 1;
-		if (y > 0) new_y = y - 1;
-		if (y < 0) new_y = y + 1;
-		// System.out.println("new x, y: " + new_x +  ", " + new_y);
-		
-		/*
-		new_x = (x/Math.abs(x))*(Math.abs(x)-1);
-		new_y = (y/Math.abs(y))*(Math.abs(y)-1);
-		*/
-		
-		/*
 		new_x = x==0?0:(x/Math.abs(x))*(Math.abs(x)-1);
 		new_y = y==0?0:(y/Math.abs(y))*(Math.abs(y)-1);
-		*/
+		
+		System.out.println(new_x + " , " + new_y);
 		//TODO try it with newPos as 0,0
 		
 		Point2D newPos = new Point2D.Double(new_x, new_y);
@@ -169,7 +164,7 @@ public class Strategy {
 		return null;
 	}
 	
-	private Direction findDirection(Point2D currentPos, Point2D newPos){
+	public static Direction findDirection(Point2D currentPos, Point2D newPos){
 		double currX = currentPos.getX();
 		double currY = currentPos.getY();
 		double newX = newPos.getX();
@@ -205,7 +200,7 @@ public class Strategy {
 		if (currX > newX && currY == newY) {
 			return Direction.W;
 		}
-		return null;
+		return Direction.N;
 		
 	}
 
