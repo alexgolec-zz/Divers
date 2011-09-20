@@ -23,6 +23,7 @@ public class Strategy {
 	private Point2D myPosition = null;
 	private boolean moveAwayFromBoat = true;
 	private boolean moveSpirally = false;
+	private DangerAvoidanceStrategy dangerAvoidanceStrategy;
 	
 	public int getCurrentRound() {
 		return currentRound;
@@ -61,29 +62,28 @@ public class Strategy {
 		currentDiverId = diverId;
 		this.myPosition = myPosition;
 		
-		Iterator<Observation> observationIter = whatYouSee.iterator();
-		Observation observationRef = null;
-		while(observationIter.hasNext()){
-			observationRef = observationIter.next();
-			if(observationRef.getId() > 0)
-				System.out.println(" location of " + observationRef.getId() + " is " + observationRef.getLocation());
-			if(observationRef.isDangerous()){
-				
-			}
-		}
+		dangerAvoidanceStrategy = new DangerAvoidanceStrategy(myPosition, whatYouSee);
+		
 	}
 	
 	
 	public Direction getMove(int diverId){ 
 		currentDiverId = diverId;
 		EndGameStrategy endGameStrategy = new EndGameStrategy();
+		Direction nextMove;
 		
-		if(endGameStrategy.allowedReturnTimeRadius((double)40, this) < endGameStrategy.fastestReturnTime(myPosition)){
+		if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(myPosition)){
 			System.out.println(" -endGameStrategy.allowedReturnTimeRadius- ");
-			return moveTowardBoat();
+			nextMove = moveTowardBoat();
+			System.out.println(nextMove + "nextMove1");
+			nextMove = dangerAvoidanceStrategy.avoidDanger(nextMove);
+			return nextMove;
 		}
 		
-		return spiralMove();
+		nextMove = spiralMove();
+		nextMove = dangerAvoidanceStrategy.avoidDanger(nextMove);
+		
+		return nextMove;
 	}
 	
 	private Direction moveTowardBoat(){
@@ -95,10 +95,12 @@ public class Strategy {
 		new_x = x==0?0:(x/Math.abs(x))*(Math.abs(x)-1);
 		new_y = y==0?0:(y/Math.abs(y))*(Math.abs(y)-1);
 		
+		System.out.println(new_x + " , " + new_y);
 		//TODO try it with newPos as 0,0
+		
 		Point2D newPos = new Point2D.Double(new_x, new_y);
 		
-		System.out.println(myPosition + "to" + newPos +  " ------ " + findDirection(myPosition, newPos));
+		// System.out.println(myPosition + "to" + newPos +  " ------ " + findDirection(myPosition, newPos));
 		return findDirection(myPosition, newPos);
 	}
 	
@@ -165,7 +167,7 @@ public class Strategy {
 		return null;
 	}
 	
-	private Direction findDirection(Point2D currentPos, Point2D newPos){
+	public static Direction findDirection(Point2D currentPos, Point2D newPos){
 		double currX = currentPos.getX();
 		double currY = currentPos.getY();
 		double newX = newPos.getX();
@@ -201,7 +203,7 @@ public class Strategy {
 		if (currX > newX && currY == newY) {
 			return Direction.W;
 		}
-		return null;
+		return Direction.N;
 		
 	}
 
