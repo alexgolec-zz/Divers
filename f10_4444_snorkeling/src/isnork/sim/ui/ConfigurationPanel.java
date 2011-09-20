@@ -10,21 +10,33 @@ import isnork.sim.GameConfig;
 import isnork.sim.Player;
 
 import java.awt.Dimension;
+import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.GridBagConstraints;
+import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.awt.geom.Point2D;
+import java.awt.image.RescaleOp;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JSpinner;
+import javax.swing.JTextField;
+import javax.swing.ScrollPaneConstants;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
@@ -49,7 +61,6 @@ public final class ConfigurationPanel extends JPanel implements ChangeListener,
 	private JLabel score;
 	private JButton remove;
 	private JSpinner randomSeed;
-	private JSpinner penalty;
 	
 	private JLabel playerLabel;
 	private JComboBox playerBox;
@@ -67,7 +78,7 @@ public final class ConfigurationPanel extends JPanel implements ChangeListener,
 
 		this.setBorder(BorderFactory.createTitledBorder(
 				BorderFactory.createEtchedBorder(), "Configuration"));
-//		this.setPreferredSize(new Dimension(350, 1200));
+		this.setPreferredSize(new Dimension(350, 1200));
 		
 		this.setLayout(new GridLayout(0, 2));
 
@@ -77,7 +88,7 @@ public final class ConfigurationPanel extends JPanel implements ChangeListener,
 		numAntsLabel.setFont(config_font);
 		dSpinner = new JSpinner(new SpinnerNumberModel(
 				GameConfig.d, 1, null, 1));
-		dSpinner.setPreferredSize(new Dimension(120, 10));
+		dSpinner.setPreferredSize(new Dimension(100, 10));
 		dSpinner.addChangeListener(this);
 
 		add(numAntsLabel);
@@ -88,7 +99,7 @@ public final class ConfigurationPanel extends JPanel implements ChangeListener,
 		lbl.setFont(config_font);
 		rSpinner = new JSpinner(new SpinnerNumberModel(
 				this.config.getR(), 1, null, 1));
-		rSpinner.setPreferredSize(new Dimension(120, 10));
+		rSpinner.setPreferredSize(new Dimension(100, 10));
 		rSpinner.addChangeListener(this);
 
 		add(lbl);
@@ -98,17 +109,11 @@ public final class ConfigurationPanel extends JPanel implements ChangeListener,
 		label.setFont(config_font);
 		numDiversSpinner = new JSpinner(new SpinnerNumberModel(this.config.getNumDivers(), 1, null,
 				1));
-		numDiversSpinner.setPreferredSize(new Dimension(120, 10));
+		numDiversSpinner.setPreferredSize(new Dimension(100, 10));
 		numDiversSpinner.addChangeListener(this);
 		add(label);
 		add(numDiversSpinner);
 
-		penalty = new JSpinner(new SpinnerNumberModel(this.config.getPenalty(), 0, null,
-				1));
-		penalty.addChangeListener(this);
-		add(new JLabel("Rescue Penalty"));
-		add(penalty);
-		
 		randomSeed = new JSpinner(new SpinnerNumberModel(this.config.getRandomSeed(), new Long(1), null,
 				new Long(1)));
 		randomSeed.addChangeListener(this);
@@ -172,9 +177,6 @@ public final class ConfigurationPanel extends JPanel implements ChangeListener,
 		 else if(arg0.getSource().equals(numDiversSpinner))
 		 config.setNumDivers(((Integer) ((JSpinner)
 		 arg0.getSource()).getValue()).intValue());
-		 else if(arg0.getSource().equals(penalty))
-			 config.setPenalty(((Integer) ((JSpinner)
-			 arg0.getSource()).getValue()).intValue());
 		 else if(arg0.getSource().equals(randomSeed))
 			 config.setRandomSeed(((Long) ((JSpinner)
 			 arg0.getSource()).getValue()).longValue());
@@ -210,7 +212,7 @@ public final class ConfigurationPanel extends JPanel implements ChangeListener,
 	public void valueChanged(ListSelectionEvent e) {
 	}
 
-	public void updateScores(int s) {
+	public void updateScores(double s) {
 		score.setText("Score: " + s);
 	}
 }

@@ -18,10 +18,15 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ComponentEvent;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JSlider;
 import javax.swing.JTabbedPane;
 import javax.swing.event.ChangeEvent;
@@ -179,7 +184,7 @@ public final class GUI extends JFrame implements ActionListener, GameListener,
 			//
 			// ArrayList<TournamentResult> results = t.getResults();
 			// for(TournamentResult r : results)
-			// System.out.println(r);
+			// GameEngine.println(r);
 			// File file = new
 			// File("tournament_"+engine.getConfig().getSelectedBoard().getName()
 			// +"_"+engine.getConfig().getActivePlayerNum()
@@ -194,7 +199,7 @@ public final class GUI extends JFrame implements ActionListener, GameListener,
 			// //f.write("\n");
 			// f.close();
 			// }catch(IOException e){
-			// System.err.println("Failed printing to output file:" + file );
+			// GameEngine.println("Failed printing to output file:" + file );
 			// }
 			//
 			// //TODO turn into thread, allow us to kill it...
@@ -274,7 +279,8 @@ public final class GUI extends JFrame implements ActionListener, GameListener,
 			controlPanel.begin.setEnabled(true);
 			configPanel.setEnabled(true);
 			String s = "After 8 hours, total happiness: "
-					+ engine.getScores() + ", avg: "+((double)engine.getScores()/engine.getConfig().getNumDivers());
+					+ engine.getScores() + ", avg: "+((double)engine.getScores()/engine.getConfig().getNumDivers()
+							+ " DSQ: " + engine.getDsq());
 			JOptionPane.showMessageDialog((Frame) c, s, "Game Over",
 					JOptionPane.INFORMATION_MESSAGE);
 

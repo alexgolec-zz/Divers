@@ -6,24 +6,43 @@
  */
 package isnork.sim;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Cursor;
 import java.awt.Dimension;
+import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.GridLayout;
 import java.awt.Image;
+import java.awt.Point;
+import java.awt.RenderingHints.Key;
+import java.awt.Shape;
+import java.awt.Stroke;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Line2D;
+import java.awt.geom.Line2D.Double;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.awt.image.Raster;
+import java.awt.image.WritableRaster;
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 
 import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public final class BoardPanel extends JPanel implements MouseMotionListener {
@@ -54,7 +73,7 @@ public final class BoardPanel extends JPanel implements MouseMotionListener {
 	final Color default_color = new Color(0, 65, 18);
 	final Color default_danger_color = new Color(255, 0, 0);
 	final Color ocrean_color = new Color(205, 221, 229);
-
+	final Color visible_color = new Color(205,0,229);
 	public void paint(Graphics g) {
 		if (board == null)
 			return;
@@ -81,6 +100,16 @@ public final class BoardPanel extends JPanel implements MouseMotionListener {
 				(int) Board.toScreenSpace(0),
 				(int) Board.toScreenSpaceNoOffset(1),
 				(int) Board.toScreenSpaceNoOffset(1));
+		
+		if(onPlayer)
+		{
+			g2D.setColor(visible_color);
+			double tx = Board.toScreenSpace(MouseCoords.getX() - engine.getConfig().getR());
+			double ty = Board.toScreenSpace(MouseCoords.getY()- engine.getConfig().getR() );
+			Ellipse2D visibleBox = new Ellipse2D.Double(tx,ty, Board.toScreenSpaceNoOffset(engine.getConfig().getR()*2 + 1) , Board.toScreenSpaceNoOffset(engine.getConfig().getR()*2 + 1) );
+			g2D.fill(visibleBox);
+		}
+		g2D.setColor(Color.black);
 		drawGrid(g2D);
 
 		if (engine != null && engine.getConfig() != null
@@ -93,12 +122,13 @@ public final class BoardPanel extends JPanel implements MouseMotionListener {
 					if (!icons.containsKey(s.filename)) {
 						BufferedImage img = null;
 						try {
-							img = ImageIO.read(new File("icons/" + s.filename));
+							img = ImageIO.read(new File("boards/icons/" + s.filename));
 							icons.put(s.filename, img.getScaledInstance(w, w,
 									BufferedImage.SCALE_FAST));
 						} catch (IOException ioe) {
-							System.out.println("Unable to read image icons/"
+							GameEngine.println("Unable to read image icons/"
 									+ s.filename);
+							ioe.printStackTrace();
 						}
 					}
 					g2D.drawImage(icons.get(s.filename),
@@ -120,11 +150,12 @@ public final class BoardPanel extends JPanel implements MouseMotionListener {
 						.getY() + GameConfig.d)]++;
 				BufferedImage img = null;
 				try {
-					img = ImageIO.read(new File("icons/diver.png"));
+					img = ImageIO.read(new File("boards/icons/diver.png"));
 					icons.put("diver", img.getScaledInstance(w, w,
 							BufferedImage.SCALE_FAST));
 				} catch (IOException ioe) {
-					System.out.println("Unable to read image icons/diver.png");
+					ioe.printStackTrace();
+					GameEngine.println("Unable to read image icons/diver.png");
 				}
 				g2D.drawImage(icons.get("diver"),
 						(int) Board.toScreenSpace(p.location.getX()),
@@ -184,7 +215,8 @@ public final class BoardPanel extends JPanel implements MouseMotionListener {
 			r = 0 - r - 1;
 		return r;
 	}
-
+	boolean onPlayer = false;
+	Point mouseLoc = null;
 	public void mouseMoved(MouseEvent e) {
 		MouseCoords = Board.fromScreenSpace(e.getPoint());
 		MouseCoords = new Point2D.Double(floorAbs(MouseCoords.getX()),
@@ -207,10 +239,12 @@ public final class BoardPanel extends JPanel implements MouseMotionListener {
 				tip+="<i>No sealife here</i><br>";
 			n =0;
 			tip +="<b>Players here:</b><br>";
+			onPlayer = false;
 			for(Player p : engine.players)
 			{
 				if(p.location.equals(MouseCoords))
 				{
+					onPlayer = true;
 					tip+=p.toString()+"<br>";
 					n++;
 				}
@@ -239,5 +273,12 @@ public final class BoardPanel extends JPanel implements MouseMotionListener {
 					* Board.pixels_per_meter / d;
 		repaint();
 	}
-
+	public void recalculateDimensions(int my_w, int my_h) {
+		int d = Math.min(my_w, my_h);
+		d -= 10;
+		if (d > 0)
+			Board.pixels_per_pixel = ((double) GameConfig.d * 2 + 1)
+					* Board.pixels_per_meter / d;
+		repaint();
+	}
 }

@@ -4,10 +4,7 @@ public class Globals {
 	
 	private static final Globals GLOBALS = new Globals();
 	
-	public int n;
-	
-	public int currentRound = 0;
-	public int maxRounds = 480;
+//	public SeaBoard seaBoard = new SeaBoard(null, 0);
 	
 	private Globals() {
 		// TODO Auto-generated constructor stub

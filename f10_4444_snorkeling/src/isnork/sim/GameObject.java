@@ -2,13 +2,13 @@ package isnork.sim;
 
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
+import java.util.HashSet;
 
 public abstract class GameObject {
 	protected double x;
 	protected double y;
 	public enum Direction{
-		//E(0,false,1,0),NE(45,true,1,-1),N(90,false,0,-1),NW(134,true,-1,-1),W(180,false,0,-1),SW(225,true,-1,1),S(270,false,0,1),SE(315,true,1,1);
-		E(0,false,1,0),NE(45,true,1,-1),N(90,false,0,-1),NW(134,true,-1,-1),W(180,false,-1,0),SW(225,true,-1,1),S(270,false,0,1),SE(315,true,1,1);
+		E(0,false,1,0),NE(45,true,1,-1),N(90,false,0,-1),NW(135,true,-1,-1),W(180,false,-1,0),SW(225,true,-1,1),S(270,false,0,1),SE(315,true,1,1),STAYPUT(0,false,0,0);
 		int deg;
 		boolean diag;
 		public int dx;

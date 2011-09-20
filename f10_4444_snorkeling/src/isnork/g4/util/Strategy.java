@@ -6,6 +6,7 @@ import isnork.sim.SeaLifePrototype;
 import isnork.sim.iSnorkMessage;
 
 import java.awt.geom.Point2D;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -60,7 +61,9 @@ public class Strategy {
 		currentRound++;
 		currentDiverId = diverId;
 		this.myPosition = myPosition;
+		
 		dangerAvoidanceStrategy = new DangerAvoidanceStrategy(myPosition, whatYouSee);
+		
 	}
 	
 	
@@ -140,7 +143,7 @@ public class Strategy {
 				case 5: return Direction.SE;
 				case 6: return Direction.E;
 				case 7: return Direction.NE;
-//				default: System.out.println(" ret null in switch "); return null;
+				default: return Direction.STAYPUT;
 			}
 		} else if(moveSpirally){
 			if( (x > 0) && (Math.abs(x) >= Math.abs(y)) ){

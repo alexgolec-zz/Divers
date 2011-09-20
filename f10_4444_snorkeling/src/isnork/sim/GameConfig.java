@@ -7,26 +7,36 @@ package isnork.sim;
 
 import java.awt.Point;
 import java.beans.XMLDecoder;
+import java.beans.XMLEncoder;
 import java.io.File;
 import java.io.FileFilter;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Properties;
 import java.util.Random;
 import java.util.Scanner;
 
 import javax.swing.ComboBoxModel;
 import javax.swing.DefaultComboBoxModel;
 
+
 import org.apache.log4j.Logger;
+import org.xml.sax.InputSource;
+import org.xml.sax.XMLReader;
+import org.xml.sax.helpers.XMLReaderFactory;
+
 
 public class GameConfig {
 
 	int gameDelay = 500;
 	int number_of_rounds;
 	int current_round;
-	int penalty = 100;
+	int penalty = 0;
 	
 	public int getPenalty() {
 		return penalty;
@@ -60,7 +70,7 @@ public class GameConfig {
 		return d;
 	}
 
-	int r = 3;
+	int r = 5;
 
 	public void setR(int r) {
 		this.r = r;
@@ -125,8 +135,8 @@ public class GameConfig {
 	}
 
 	private void readPlayers() {
-		File f = new File("playerClasses.txt");
 		try {
+			File f = new File("playerClasses.txt");
 			Scanner s = new Scanner(f);
 			while (s.hasNextLine()) {
 				String t = s.nextLine();
@@ -142,7 +152,64 @@ public class GameConfig {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		File sourceFolder = new File("bin"+System.getProperty("file.separator")+"isnork"+System.getProperty("file.separator"));
+		for(File f : sourceFolder.listFiles())
+		{
 
+			if(f.getName().length() == 2 && f.getName().substring(0,1).equals("g"))
+			{
+				for(File c : f.listFiles())
+				{
+					if(c.getName().endsWith(".class") ){
+						String className = c.toString().replace(System.getProperty("file.separator"),".").replace("bin.","");						className = className.substring(0, className.length() - 6);
+						 Class theClass = null;
+				          try{
+				            theClass = Class.forName(className, false,this.getClass().getClassLoader());
+				            if(theClass.getSuperclass() != null && theClass.getSuperclass().toString().equals("class isnork.sim.Player"))
+				            {
+				            	if(!availablePlayers.contains((Class<Player>) theClass))
+				            		availablePlayers.add((Class<Player>) theClass);
+				            }
+				          }catch(NoClassDefFoundError e){
+				            continue;
+				          } catch (ClassNotFoundException e) {
+							// TODO Auto-generated catch block
+							continue;
+						}
+
+					}
+					else if(c.isDirectory())
+					{
+						for(File ca : c.listFiles())
+						{
+							if(ca.getName().endsWith(".class") ){
+								String className = ca.toString().replace(c.toString(),"").replaceAll("/", ".");
+								className = className.substring(0, className.length() - 6);
+								 Class theClass = null;
+						          try{
+						            theClass = Class.forName(className, false,this.getClass().getClassLoader());
+						            if(theClass.getSuperclass() != null && theClass.getSuperclass().toString().equals("class isnork.sim.Player"))
+						            {
+						            	if(!availablePlayers.contains((Class<Player>) theClass))
+						            		availablePlayers.add((Class<Player>) theClass);
+						            }
+						          }catch(NoClassDefFoundError e){
+						            continue;
+						          } catch (ClassNotFoundException e) {
+									// TODO Auto-generated catch block
+									continue;
+								}
+
+							}
+							else if(c.isDirectory())
+							{
+								
+							}
+						}
+					}
+				}
+			}
+		}
 	}
 
 	/**
@@ -166,7 +233,7 @@ public class GameConfig {
 				}
 			}
 		} catch (IOException e) {
-			System.err.println("Error reading configuration file:"
+			GameEngine.println("Error reading configuration file:"
 					+ e.getMessage());
 			e.printStackTrace();
 			System.exit(-1);

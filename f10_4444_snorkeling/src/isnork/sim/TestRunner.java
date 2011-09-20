@@ -15,7 +15,7 @@ public class TestRunner {
 //    {
 //        Scrabble myscrabble = new Scrabble();
 //
-//        System.out.println("Score = " +  myscrabble.getWordScore("ZZZ"));
+//        GameEngine.println("Score = " +  myscrabble.getWordScore("ZZZ"));
 //
 //    }
 

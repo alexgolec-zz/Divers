@@ -1,5 +1,7 @@
 package isnork.sim;
 
+import isnork.sim.GameObject.Direction;
+
 import java.awt.geom.Point2D;
 
 public class Observation {
@@ -21,10 +23,18 @@ public class Observation {
 	{
 		return danger;
 	}
-	public int happiness()
+	public double happinessD()
 	{
 		return happy;
 	}
-	int happy;
+	public int happiness()
+	{
+		return (int) happy;
+	}
+	double happy;
 	boolean danger;
+	Direction dir;
+	public Direction getDirection() {
+		return dir;
+	}
 }
