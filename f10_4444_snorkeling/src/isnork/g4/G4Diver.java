@@ -36,14 +36,16 @@ public class G4Diver extends Player {
 		return "G4 Diver";
 	}
 
-	/** Set of possible species we have seen. */
-	private Set<SeaLifePrototype> seaLifePrototypes;
 	/** Mapping form species to communication code. */
 	private MessageMap messageMap;
 	/** Mapping from name to SeaLifePrototype. This field is meant to be read-only... */
 	private static Hashtable<String, SeaLifePrototype> species = null;
 	/** Set of IDs of stationary objects that were already reported. */
 	private Set<Integer> reportedStationaries;
+	/** Map from id to observation of the last observations of the last tick. */
+	private Hashtable<Integer, Observation> lastCreatureObservations = null;
+	/** The radius of visibility. */
+	int visibilityRadius;
 	
 	/**
 	 * Build the set of name to prototype mappings
@@ -70,8 +72,8 @@ public class G4Diver extends Player {
 		seaBoard = new SeaBoard(seaLifePossibilites, d);
 		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
 		
-		seaLifePrototypes = seaLifePossibilites;
 		messageMap = new MessageMap(seaLifePossibilites);
+		visibilityRadius = r;
 
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
@@ -81,6 +83,7 @@ public class G4Diver extends Player {
 	 * @return the prototype, or null if it wasn't found
 	 */
 	public static SeaLifePrototype getProtoFromName(String name) {
+		assert(species != null);
 		try {
 			return species.get(name);
 		} catch (NullPointerException e) {
@@ -183,6 +186,14 @@ public class G4Diver extends Player {
 		return ret;
 	}
 	
+	private Hashtable<Integer, Observation> archiveObservations(Set<Observation> observations) {
+		Hashtable<Integer, Observation> ret = new Hashtable<Integer, Observation>();
+		for (Observation o: observations) {
+			ret.put(o.getId(), o);
+		}
+		return ret;
+	}
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#tick(java.awt.geom.Point2D, java.util.Set, java.util.Set, java.util.Set)
 	 */
@@ -201,6 +212,9 @@ public class G4Diver extends Player {
 		if (message != null) {
 			System.out.println("Reporting species " + speciesToReport + " (" + message + ")");
 		}
+		
+		lastCreatureObservations = archiveObservations(whatYouSee);
+		
 		return message;
 	}
 
