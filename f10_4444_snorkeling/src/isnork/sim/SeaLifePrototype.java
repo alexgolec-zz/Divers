@@ -1,10 +1,11 @@
 package isnork.sim;
 
+import java.awt.Color;
 
 public class SeaLifePrototype implements Cloneable{
 	protected int speed;
 	protected String name;
-	protected int happiness;
+	protected double happiness;
 	protected boolean dangerous = false;
 	protected int minCount;
 	protected int maxCount;
@@ -53,8 +54,12 @@ public class SeaLifePrototype implements Cloneable{
 	public void setName(String name) {
 		this.name = name;
 	}
-	public int getHappiness() {
+	public double getHappinessD()
+	{
 		return happiness;
+	}
+	public int getHappiness() {
+		return (int)happiness;
 	}
 	public void setHappiness(int happiness) {
 		this.happiness = happiness;

@@ -2,6 +2,7 @@ package isnork.sim.ui;
 
 import isnork.sim.Player;
 
+import java.awt.Color;
 import java.awt.Component;
 
 import javax.swing.DefaultListCellRenderer;

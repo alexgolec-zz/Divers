@@ -1,11 +1,15 @@
 package isnork.sim;
 
+import java.awt.Color;
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.Set;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
 
 public class Cell
 {

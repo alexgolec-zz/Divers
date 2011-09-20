@@ -13,6 +13,7 @@ import javax.swing.JTabbedPane;
 
 
 
+
 /**
  * 
  * @author Bell
@@ -36,12 +37,13 @@ public final class Text implements GameListener
 	}
 	public void play()
 	{
+
 		if(engine.setUpGame())
 			while(engine.step())
 			{
-				
+
 			}
-	}
+		}
 	public void gameUpdated(GameUpdateType type)
 	{
 		switch (type)
@@ -50,12 +52,9 @@ public final class Text implements GameListener
 		
 			break;
 		case MOVEPROCESSED:
-			if(longMode)
-				System.out.println("Time,Num_Caught,Num_Lights,Num_Mosquitos,Board_Name,Player_Name");
-//			configPanel.updateScore(engine.getBoard().mosquitosCaught);
+		//			configPanel.updateScore(engine.getBoard().mosquitosCaught);
 			break;
 		case STARTING:
-			System.out.println("Time,Num_Caught,Num_Lights,Num_Mosquitos,Board_Name,Player_Name");
 			break;
 		case MOUSEMOVED:
 		default:

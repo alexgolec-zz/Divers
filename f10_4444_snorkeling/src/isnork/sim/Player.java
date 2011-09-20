@@ -15,7 +15,11 @@ public abstract class Player {
 
 	Point2D location;
 	int id;
-	int happiness = 0;
+	double happiness = 0;
+	public double getHappiness()
+	{
+		return happiness;
+	}
 	public int getId()
 	{
 		return id;

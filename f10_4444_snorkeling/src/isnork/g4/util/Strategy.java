@@ -143,7 +143,7 @@ public class Strategy {
 				case 5: return Direction.SE;
 				case 6: return Direction.E;
 				case 7: return Direction.NE;
-//				default: System.out.println(" ret null in switch "); return null;
+				default: return Direction.STAYPUT;
 			}
 		} else if(moveSpirally){
 			if( (x > 0) && (Math.abs(x) >= Math.abs(y)) ){
