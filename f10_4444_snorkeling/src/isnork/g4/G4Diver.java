@@ -5,7 +5,7 @@ package isnork.g4;
 
 import isnork.g4.util.ClusteringStrategy;
 import isnork.g4.util.MessageMap;
-import isnork.g4.util.SeaBoard;
+import isnork.g4.util.HeatMap;
 import isnork.g4.util.Strategy;
 import isnork.sim.GameObject.Direction;
 import isnork.sim.Observation;
@@ -26,7 +26,7 @@ import java.util.Set;
 public class G4Diver extends Player {
 	
 	Strategy strategy = null;
-	SeaBoard seaBoard = null;
+	HeatMap seaBoard = null;
 	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#getName()
@@ -64,7 +64,7 @@ public class G4Diver extends Player {
 			constructPossibilitiesMap(seaLifePossibilites);
 		}
 		
-		seaBoard = new SeaBoard(seaLifePossibilites, d);
+		seaBoard = new HeatMap(seaLifePossibilites, d);
 		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
 		
 		seaLifePrototypes = seaLifePossibilites;

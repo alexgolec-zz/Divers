@@ -6,6 +6,7 @@ import isnork.sim.SeaLifePrototype;
 import isnork.sim.iSnorkMessage;
 
 import java.awt.geom.Point2D;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Set;
 
@@ -59,6 +60,17 @@ public class Strategy {
 		currentRound++;
 		currentDiverId = diverId;
 		this.myPosition = myPosition;
+		
+		Iterator<Observation> observationIter = whatYouSee.iterator();
+		Observation observationRef = null;
+		while(observationIter.hasNext()){
+			observationRef = observationIter.next();
+			if(observationRef.getId() > 0)
+				System.out.println(" location of " + observationRef.getId() + " is " + observationRef.getLocation());
+			if(observationRef.isDangerous()){
+				
+			}
+		}
 	}
 	
 	
