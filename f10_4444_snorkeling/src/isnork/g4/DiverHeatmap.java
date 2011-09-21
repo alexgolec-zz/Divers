@@ -88,6 +88,12 @@ public class DiverHeatmap {
 	public void registerStationary(Observation o) {
 		invalidateDanger();
 		
+		if (stationaryCreatures.containsKey(o.getId())) {
+			return;
+		}
+		
+		System.out.println("Registering observation " + o.getName());
+		
 		Point2D pos = o.getLocation();
 		stationaryCreatures.put(o.getId(), new StationaryCreature((int) pos.getX(), (int) pos.getY(), o));
 	}

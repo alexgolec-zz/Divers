@@ -45,7 +45,8 @@ public class G4Diver extends Player {
 	/** Map from id to observation of the last observations of the last tick. */
 	private Hashtable<Integer, Observation> lastCreatureObservations = null;
 	/** The radius of visibility. */
-	int visibilityRadius;
+	private int visibilityRadius;
+	private DiverHeatmap heatmap;
 	
 	/**
 	 * Build the set of name to prototype mappings
@@ -74,6 +75,7 @@ public class G4Diver extends Player {
 		
 		messageMap = new MessageMap(seaLifePossibilites);
 		visibilityRadius = r;
+		heatmap = new DiverHeatmap(d);
 
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
@@ -194,6 +196,14 @@ public class G4Diver extends Player {
 		return ret;
 	}
 	
+	private void registerStationariesWithHeatmap(Collection<Observation> observations) {
+		for (Observation o: observations) {
+			if (getProtoFromName(o.getName()).getSpeed() == 0) {
+				heatmap.registerStationary(o);
+			}
+		}
+	}
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#tick(java.awt.geom.Point2D, java.util.Set, java.util.Set, java.util.Set)
 	 */
@@ -207,6 +217,9 @@ public class G4Diver extends Player {
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
 		Set<SeaLifePrototype> visibleSpecies = getSpeciesFromObservations(justCreatures); 
 
+		// Notify the heatmap of stationary creatures
+		registerStationariesWithHeatmap(justCreatures);
+		
 		String speciesToReport = chooseSpeciesToReport(justCreatures);
 		String message = messageMap.get(speciesToReport);
 		if (message != null) {
