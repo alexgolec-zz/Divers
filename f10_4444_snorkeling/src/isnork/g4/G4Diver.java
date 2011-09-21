@@ -45,7 +45,6 @@ public class G4Diver extends Player {
 	/** Map from id to observation of the last observations of the last tick. */
 	private Hashtable<Integer, Observation> lastCreatureObservations = null;
 	/** The radius of visibility. */
-	private int visibilityRadius;
 	private DiverHeatmap heatmap;
 	
 	/**
@@ -74,7 +73,6 @@ public class G4Diver extends Player {
 		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
 		
 		messageMap = new MessageMap(seaLifePossibilites);
-		visibilityRadius = r;
 		heatmap = new DiverHeatmap(d);
 
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
@@ -105,6 +103,9 @@ public class G4Diver extends Player {
 		for (Observation o: observations) {
 			if (o.getId() > 0) {
 				ret.add(o);
+				if (o.isDangerous()) {
+					System.out.println("Jesus Christ! Is that a "+o.getName()+"!??!");
+				}
 			}
 		}
 		
@@ -215,17 +216,16 @@ public class G4Diver extends Player {
 		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
-		Set<SeaLifePrototype> visibleSpecies = getSpeciesFromObservations(justCreatures); 
-
+		
 		// Notify the heatmap of stationary creatures
 		registerStationariesWithHeatmap(justCreatures);
 		
+		// Select which species to dispatch a report on
 		String speciesToReport = chooseSpeciesToReport(justCreatures);
+		// Map the species to a string message
 		String message = messageMap.get(speciesToReport);
-		if (message != null) {
-			System.out.println("Reporting species " + speciesToReport + " (" + message + ")");
-		}
 		
+		// Store the last creature observations in the hashtable. 
 		lastCreatureObservations = archiveObservations(whatYouSee);
 		
 		return message;

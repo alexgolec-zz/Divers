@@ -92,8 +92,6 @@ public class DiverHeatmap {
 			return;
 		}
 		
-		System.out.println("Registering observation " + o.getName());
-		
 		Point2D pos = o.getLocation();
 		stationaryCreatures.put(o.getId(), new StationaryCreature((int) pos.getX(), (int) pos.getY(), o));
 	}
@@ -103,16 +101,18 @@ public class DiverHeatmap {
 	 * @param c the creature
 	 */
 	private void putStationaryCreature(StationaryCreature c) {
+		if (!c.proto.isDangerous()) {
+			return;
+		}
+		
 		for (Point p: dangerRadius) {
-			if (!c.proto.isDangerous()) {
-				continue;
-			}
 			Point cur = new Point((int) c.pos.getX(), (int) c.pos.getY());
 			cur.setLocation(cur.x + p.x, cur.y + cur.y);
 			
 			try {
 				double old = dangerGetPrivate(cur.x, cur.y);
 				dangerSet(cur.x, cur.y, old - 2 * c.proto.getHappiness());
+				System.out.println("Set danger value to "+dangerGetPrivate(cur.x, cur.y));
 			} catch (IndexOutOfBoundsException e) {
 				continue;
 			}
@@ -121,7 +121,8 @@ public class DiverHeatmap {
 	
 	private void refreshDanger() {
 		if (danger == null) {
-			danger = new double[dimension][dimension];
+			int size = 2 * dimension + 1;
+			danger = new double[size][size];
 		} else {
 			return;
 		}
@@ -133,5 +134,20 @@ public class DiverHeatmap {
 	
 	private void invalidateDanger() {
 		danger = null;
+	}
+	
+	public String toString() {
+		String ret = "";
+		
+		for (int i = -dimension; i <= dimension; i++) {
+			for (int j = -dimension; j <= dimension; j++) {
+				 double d = dangerGet(i, j);
+				 if (Math.abs(d) > 0.00001) {
+					 ret += ("("+i+","+j+") -> "+d+"\n");
+				 }
+			}
+		}
+		
+		return ret;
 	}
 }
