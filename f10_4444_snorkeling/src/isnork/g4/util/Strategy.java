@@ -1,5 +1,6 @@
 package isnork.g4.util;
 
+import isnork.g4.G4Diver;
 import isnork.sim.GameObject.Direction;
 import isnork.sim.Observation;
 import isnork.sim.SeaLifePrototype;
@@ -24,6 +25,7 @@ public class Strategy {
 	private boolean moveAwayFromBoat = true;
 	private boolean moveSpirally = false;
 	private DangerAvoidanceStrategy dangerAvoidanceStrategy;
+	private Set<Observation> whatISee = null;
 	
 	public int getCurrentRound() {
 		return currentRound;
@@ -61,7 +63,7 @@ public class Strategy {
 		currentRound++;
 		currentDiverId = diverId;
 		this.myPosition = myPosition;
-		
+		this.whatISee = whatYouSee;
 		dangerAvoidanceStrategy = new DangerAvoidanceStrategy(myPosition, whatYouSee);
 		
 	}
@@ -92,16 +94,18 @@ public class Strategy {
 		double new_x, new_y;
 		
 		// the absolute values of x and y are reduced by 1.
-		new_x = x==0?0:(x/Math.abs(x))*(Math.abs(x)-1);
-		new_y = y==0?0:(y/Math.abs(y))*(Math.abs(y)-1);
+		//new_x = x==0?0:(x/Math.abs(x))*(Math.abs(x)-1);
+		//new_y = y==0?0:(y/Math.abs(y))*(Math.abs(y)-1);
 		
-		System.out.println(new_x + " , " + new_y);
 		//TODO try it with newPos as 0,0
+		//since the boat is always at the position 0,0
+		new_x = 0;
+		new_y = 0;
 		
 		Point2D newPos = new Point2D.Double(new_x, new_y);
 		
-		// System.out.println(myPosition + "to" + newPos +  " ------ " + findDirection(myPosition, newPos));
-		return findDirection(myPosition, newPos);
+		// get the direction by which the diver can move towards the goal and still avoid danger.
+		return goToGoalAndAvoidDanger(newPos);
 	}
 	
 	private Direction spiralMove(){
@@ -164,6 +168,55 @@ public class Strategy {
 			}
 		}
 //		System.out.println(" ret null in end ");
+		return null;
+	}
+	
+	
+	/**
+	 * Function returns the direction the diver need to go to reeach the goal  
+	 * without getting bit by the dangerous creature.
+	 * 
+	 * @param goal {@link Point2D} destination of where the diver needs to go.
+	 * @return safest direction to the goal.
+	 */
+	public Direction goToGoalAndAvoidDanger(Point2D goal){
+		Direction directionToMove = findDirection(myPosition, goal);
+		boolean doISeeDanger = false;
+		
+		for(Observation refObserv : whatISee){
+			if(refObserv.isDangerous()){
+				doISeeDanger = true;
+				break;
+			}
+		}
+		if(doISeeDanger){
+			return moveTowardsDirectionAndAvoidDanger(directionToMove);
+		} else {
+			return directionToMove;
+		}
+	}
+	
+	
+	/**
+	 * Function returns the safest direction which is closest to the directionToMove.
+	 * 
+	 * @param directionToMove direction the diver intends to move.
+	 * @return safest direction the diver can move.
+	 */
+	public Direction moveTowardsDirectionAndAvoidDanger(Direction directionToMove){
+		boolean doISeeDangerousMovingCreatures = false;
+		
+		for(Observation refObservation : whatISee){
+			if(G4Diver.getProtoFromName(refObservation.getName()).getSpeed()>0){
+				doISeeDangerousMovingCreatures = true;
+			}
+		}
+		
+		// if all danger is static, then the find the direction which avoids the dangerous creture.
+		if(!doISeeDangerousMovingCreatures){
+			
+		}
+		
 		return null;
 	}
 	
