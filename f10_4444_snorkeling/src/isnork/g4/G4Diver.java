@@ -6,6 +6,7 @@ package isnork.g4;
 import isnork.g4.util.ClusteringStrategy;
 import isnork.g4.util.MessageMap;
 import isnork.g4.util.HeatMap;
+import isnork.g4.util.ObjectPool;
 import isnork.g4.util.Strategy;
 import isnork.sim.GameObject.Direction;
 import isnork.sim.Observation;
@@ -55,6 +56,7 @@ public class G4Diver extends Player {
 	Point2D position;
 	/** The dimension of the board. */
 	int dimension;
+	ObjectPool<Point2D.Double> pointPool;
 	
 	private static Hashtable<Point2D, Direction> neighbors;
 	
@@ -101,6 +103,8 @@ public class G4Diver extends Player {
 		messageMap = new MessageMap(seaLifePossibilites);
 		heatmap = new DiverHeatmap(d);
 		dimension = d;
+		pointPool = new ObjectPool<Point2D.Double>(Point2D.Double.class);
+		
 
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
@@ -302,7 +306,8 @@ public class G4Diver extends Player {
 			visited.add(current);
 			
 			for (Point2D p: neighbors.keySet()) {
-				Point2D.Double scr = new Point2D.Double(p.getX() + current.getX(), p.getY() + current.getY());
+				Point2D.Double scr = pointPool.get();
+				scr.setLocation(p.getX() + current.getX(), p.getY() + current.getY());
 				
 				if (visited.contains(scr)) {
 					continue;
@@ -333,6 +338,8 @@ public class G4Diver extends Player {
 			}
 		}
 		
+		pointPool.reset();
+		
 		return null;
 	}
 	
@@ -347,7 +354,7 @@ public class G4Diver extends Player {
 //		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
 				
 		try {
-			return getMoveDijkstra(new Point2D.Double(10, 10));
+			return getMoveDijkstra(new Point2D.Double(5, 5));
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
