@@ -13,11 +13,16 @@ import isnork.sim.Player;
 import isnork.sim.SeaLifePrototype;
 import isnork.sim.iSnorkMessage;
 
+import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.Collection;
+import java.util.Comparator;
+import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 /**
  * @author Lenovo
@@ -46,6 +51,27 @@ public class G4Diver extends Player {
 	private Hashtable<Integer, Observation> lastCreatureObservations = null;
 	/** The radius of visibility. */
 	private DiverHeatmap heatmap;
+	/** The current position. */
+	Point2D position;
+	/** The dimension of the board. */
+	int dimension;
+	
+	private static Hashtable<Point2D, Direction> neighbors;
+	
+	{
+		neighbors = new Hashtable<Point2D, Direction>(8);
+		
+		neighbors.put(new Point(-1, 1), Direction.SW);
+		neighbors.put(new Point(0, 1), Direction.S);
+		
+		neighbors.put(new Point(1, 1), Direction.SE);
+		neighbors.put(new Point(-1, 0), Direction.W);
+		neighbors.put(new Point(1, 0), Direction.E);
+		
+		neighbors.put(new Point(-1, -1), Direction.NW);
+		neighbors.put(new Point(0, -1), Direction.N);
+		neighbors.put(new Point(1, -1), Direction.NE);
+	}
 	
 	/**
 	 * Build the set of name to prototype mappings
@@ -74,6 +100,7 @@ public class G4Diver extends Player {
 		
 		messageMap = new MessageMap(seaLifePossibilites);
 		heatmap = new DiverHeatmap(d);
+		dimension = d;
 
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
@@ -197,10 +224,12 @@ public class G4Diver extends Player {
 		return ret;
 	}
 	
-	private void registerStationariesWithHeatmap(Collection<Observation> observations) {
+	private void registerWithHeatmap(Collection<Observation> observations) {
 		for (Observation o: observations) {
 			if (getProtoFromName(o.getName()).getSpeed() == 0) {
 				heatmap.registerStationary(o);
+			} else {
+				heatmap.registerMoving(o);
 			}
 		}
 	}
@@ -214,11 +243,12 @@ public class G4Diver extends Player {
 			Set<Observation> playerLocations) {
 		
 		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
+		position = myPosition;
 		
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
 		
 		// Notify the heatmap of stationary creatures
-		registerStationariesWithHeatmap(justCreatures);
+		registerWithHeatmap(justCreatures);
 		
 		// Select which species to dispatch a report on
 		String speciesToReport = chooseSpeciesToReport(justCreatures);
@@ -230,16 +260,98 @@ public class G4Diver extends Player {
 		
 		return message;
 	}
-
+	
+	private Direction getNeighbor(Point2D current, Point2D neighbor) {
+		Point2D scr = (Point2D) current.clone();
+		scr.setLocation(neighbor.getX() - current.getX(), neighbor.getY() - current.getY());
+		return neighbors.get(scr);
+	}
+	
+	private Point2D getLargest(Hashtable<Point2D, Double> m) {
+		Enumeration<Point2D> e = m.keys();
+		double index = 0.0;
+		Point2D best = null;
+		
+		while (e.hasMoreElements()) {
+			Point2D candidate = e.nextElement();
+			double potentialIndex = m.get(candidate);
+			
+			if (best == null || potentialIndex > index) {
+				index = potentialIndex;
+				best = candidate;
+			}
+		}
+		
+		return best;
+	}
+	
+	private Direction getMoveDijkstra(Point2D dest) {
+		HashSet<Point2D> visited = new HashSet<Point2D>();
+		Hashtable<Point2D, Double> indices = new Hashtable<Point2D, Double>();
+		Hashtable<Point2D, Point2D> predecessors = new Hashtable<Point2D, Point2D>();
+		
+		indices.put(position, heatmap.dangerGet((int) position.getX(), (int) position.getY()));
+		
+		while (indices.size() != 0) {
+			Point2D current = getLargest(indices);
+			double index = indices.get(current);
+			if (current.equals(dest)) {
+				break;
+			}
+			indices.remove(current);
+			visited.add(current);
+			
+			for (Point2D p: neighbors.keySet()) {
+				Point2D.Double scr = new Point2D.Double(p.getX() + current.getX(), p.getY() + current.getY());
+				
+				if (visited.contains(scr)) {
+					continue;
+				}
+				
+				boolean put = false;
+				
+				double thisIndex;
+				try {
+					thisIndex = index + heatmap.dangerGet((int) scr.getX(), (int) scr.getY());
+				} catch (ArrayIndexOutOfBoundsException e) {
+					continue;
+				}
+				
+				try {
+					double oldIndex = indices.get(scr);
+					if (oldIndex > thisIndex) {
+						put = true;
+					}
+				} catch (NullPointerException e) {
+					put = true;
+				}
+				
+				if (put) {
+					indices.put(scr, thisIndex);
+					predecessors.put(scr, current);
+				}
+			}
+		}
+		
+		return null;
+	}
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#getMove()
 	 */
 	@Override
 	public Direction getMove() {
 //		System.out.println(ClusteringStrategy.getInstance().toString());
-		System.out.println(" ------------------------- " + getId());
-		Direction d = strategy.getMove(getId());
-		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
-		return d;
+//		System.out.println(" ------------------------- " + getId());
+//		Direction d = strategy.getMove(getId());
+//		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
+				
+		try {
+			return getMoveDijkstra(new Point2D.Double(10, 10));
+		} catch (Exception e) {
+			e.printStackTrace();
+			System.exit(-1);
+		}
+		return null;
 	}
 }

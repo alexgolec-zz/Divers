@@ -12,6 +12,7 @@ public class DiverHeatmap {
 	private double[][] danger = null;
 	/** Mapping from id of observation to creature. */
 	private Hashtable<Integer, StationaryCreature> stationaryCreatures;
+	private Hashtable<Integer, MobileCreature> movingCreatures;
 	
 	/**
 	 * Utility function to perform fetching from the danger matrix.
@@ -62,13 +63,47 @@ public class DiverHeatmap {
 	 * Internal class to represent stationary creatures that were seen in person. 
 	 * @author alexgolec
 	 */
-	private class StationaryCreature {
-		public final Point pos;
+	private abstract class CreatureSighting {
+		public Point pos;
 		public final SeaLifePrototype proto;
 		
-		public StationaryCreature(int x, int y, Observation o) {
+		public CreatureSighting(int x, int y, Observation o) {
 			pos = new Point(x, y);
 			proto = G4Diver.getProtoFromName(o.getName());
+		}
+	}
+	
+	private class StationaryCreature extends CreatureSighting {
+		public StationaryCreature(int x, int y, Observation o) {
+			super(x, y, o);
+		}
+	}
+	
+	/**
+	 * Internal class to represent mobile creatures seen in person
+	 * @author alexgolec
+	 */
+	private class MobileCreature extends CreatureSighting {
+		private Point lastPos;
+		
+		public MobileCreature(int x, int y, Observation o) {
+			super(x, y, o);
+			lastPos = null;
+		}
+		
+		public void setPos(Point pos) {
+			lastPos = this.pos;
+			this.pos = pos;
+		}
+		
+		public Point getDirection() {
+			if (lastPos == null) {
+				return null;
+			}
+			int change_x = pos.x - lastPos.x;
+			int change_y = pos.y - lastPos.y;
+			
+			return new Point(change_x, change_y);
 		}
 	}
 	
@@ -79,6 +114,7 @@ public class DiverHeatmap {
 	public DiverHeatmap(int dimension) {
 		this.dimension = dimension;
 		stationaryCreatures = new Hashtable<Integer, StationaryCreature>();
+		movingCreatures = new Hashtable<Integer, MobileCreature>();
 	}
 
 	/**
@@ -86,14 +122,28 @@ public class DiverHeatmap {
 	 * @param o the observation to report
 	 */
 	public void registerStationary(Observation o) {
-		invalidateDanger();
-		
 		if (stationaryCreatures.containsKey(o.getId())) {
 			return;
 		}
 		
+		invalidateDanger();
+		
 		Point2D pos = o.getLocation();
 		stationaryCreatures.put(o.getId(), new StationaryCreature((int) pos.getX(), (int) pos.getY(), o));
+	}
+	
+	public void registerMoving(Observation o) {
+		invalidateDanger();
+
+		Point2D op = o.getLocation();
+		Point p = new Point((int) op.getX(), (int) op.getY());
+		
+		if (movingCreatures.containsKey(o.getId())) {
+			MobileCreature m = movingCreatures.get(o.getId());
+			m.setPos(new Point((int) p.getX(), (int) p.getY()));
+		} else {
+			movingCreatures.put(o.getId(), new MobileCreature(p.x, p.y, o));
+		}
 	}
 	
 	/**
@@ -113,7 +163,7 @@ public class DiverHeatmap {
 				double old = dangerGetPrivate(cur.x, cur.y);
 				dangerSet(cur.x, cur.y, old - 2 * c.proto.getHappiness());
 				System.out.println("Set danger value to "+dangerGetPrivate(cur.x, cur.y));
-			} catch (IndexOutOfBoundsException e) {
+			} catch (ArrayIndexOutOfBoundsException e) {
 				continue;
 			}
 		}
