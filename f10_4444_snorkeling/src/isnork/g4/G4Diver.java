@@ -289,12 +289,40 @@ public class G4Diver extends Player {
 		return best;
 	}
 	
+	private Direction getSafest() {
+		double safestDanger = 0;
+		Point2D safest = null;
+		for (Point2D p: neighbors.keySet()) {
+			Point2D.Double scr = pointPool.get();
+			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
+			
+			double potentialDanger;
+			try {
+				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + Math.random();
+			} catch (ArrayIndexOutOfBoundsException e) {
+				continue; 
+			}
+			
+			if (safest == null || potentialDanger < safestDanger) {
+				safest = scr;
+				safestDanger = potentialDanger;
+			}
+		}
+		pointPool.reset();
+		
+		return getNeighbor(position, safest);
+	}
+	
 	private Direction getMoveDijkstra(Point2D dest) {
 		HashSet<Point2D> visited = new HashSet<Point2D>();
 		Hashtable<Point2D, Double> indices = new Hashtable<Point2D, Double>();
 		Hashtable<Point2D, Point2D> predecessors = new Hashtable<Point2D, Point2D>();
 		
 		indices.put(position, heatmap.dangerGet((int) position.getX(), (int) position.getY()));
+		
+		if (dest.equals(position)) {
+			return Direction.STAYPUT;
+		}
 		
 		while (indices.size() != 0) {
 			Point2D current = getLargest(indices);
@@ -368,7 +396,8 @@ public class G4Diver extends Player {
 //		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
 				
 		try {
-			return getMoveDijkstra(new Point2D.Double(5, 5));
+			//return getMoveDijkstra(new Point2D.Double(5, 5));
+			return getSafest();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);

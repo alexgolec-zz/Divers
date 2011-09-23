@@ -138,6 +138,8 @@ public class DiverHeatmap {
 		Point2D op = o.getLocation();
 		Point p = new Point((int) op.getX(), (int) op.getY());
 		
+		System.out.println("Reporting moving creature "+o.getName());
+		
 		if (movingCreatures.containsKey(o.getId())) {
 			MobileCreature m = movingCreatures.get(o.getId());
 			m.setPos(new Point((int) p.getX(), (int) p.getY()));
