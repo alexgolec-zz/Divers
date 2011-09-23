@@ -16,7 +16,6 @@ public class ObjectPool<T> {
 	public T get() {
 		if (current >= objects.size()) {
 			try {
-				System.out.println("Creating object number "+current);
 				objects.add(objectClass.newInstance());
 			} catch (InstantiationException e) {
 				return null;

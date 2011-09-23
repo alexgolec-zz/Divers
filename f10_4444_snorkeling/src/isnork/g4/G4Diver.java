@@ -338,9 +338,23 @@ public class G4Diver extends Player {
 			}
 		}
 		
+		if (indices.size() == 0) {
+			return null;
+		}
+		
 		pointPool.reset();
 		
-		return null;
+		Point2D move = dest;
+		while (true) {
+			Point2D next = predecessors.get(move);
+			if (next.equals(position)) {
+				break;
+			} else {
+				move = next;
+			}
+		}
+		
+		return getNeighbor(position, move);
 	}
 	
 	/* (non-Javadoc)
