@@ -2,8 +2,10 @@ package isnork.g4;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.HashSet;
 import java.util.Hashtable;
 
+import isnork.g4.util.MarkovSimulator;
 import isnork.sim.Observation;
 import isnork.sim.SeaLifePrototype;
 
@@ -104,6 +106,15 @@ public class DiverHeatmap {
 			int change_y = pos.y - lastPos.y;
 			
 			return new Point(change_x, change_y);
+		}
+		
+		public float[][] MarkovSimulate(int ticks) {
+			int size = 2 * ticks + 1;
+			float [][] ret = new float[size][size];
+			
+			
+			
+			return ret;
 		}
 	}
 	

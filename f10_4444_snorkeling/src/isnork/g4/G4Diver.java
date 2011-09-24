@@ -4,6 +4,7 @@
 package isnork.g4;
 
 import isnork.g4.util.ClusteringStrategy;
+import isnork.g4.util.MarkovSimulator;
 import isnork.g4.util.MessageMap;
 import isnork.g4.util.HeatMap;
 import isnork.g4.util.ObjectPool;
@@ -58,7 +59,7 @@ public class G4Diver extends Player {
 	int dimension;
 	ObjectPool<Point2D.Double> pointPool;
 	
-	private static Hashtable<Point2D, Direction> neighbors;
+	public static Hashtable<Point2D, Direction> neighbors;
 	
 	{
 		neighbors = new Hashtable<Point2D, Direction>(8);
@@ -298,7 +299,7 @@ public class G4Diver extends Player {
 			
 			double potentialDanger;
 			try {
-				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + Math.random();
+				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + Math.random() / 100;
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue; 
 			}
