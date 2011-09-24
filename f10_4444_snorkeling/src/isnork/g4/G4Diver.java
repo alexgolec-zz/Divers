@@ -97,14 +97,13 @@ public class G4Diver extends Player {
 		}
 		reportedStationaries = new HashSet<Integer>();
 		
-		seaBoard = new HeatMap(seaLifePossibilites, d);
-		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
+//		seaBoard = new HeatMap(seaLifePossibilites, d);
+//		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
 		
 		messageMap = new MessageMap(seaLifePossibilites);
 		heatmap = new DiverHeatmap(d);
 		dimension = d;
 		pointPool = new ObjectPool<Point2D.Double>(Point2D.Double.class);
-		
 
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
@@ -134,9 +133,10 @@ public class G4Diver extends Player {
 		for (Observation o: observations) {
 			if (o.getId() > 0) {
 				ret.add(o);
-				if (o.isDangerous()) {
-					System.out.println("Jesus Christ! Is that a "+o.getName()+"!??!");
-				}
+				System.out.println("added " + o.getId());
+//				if (o.isDangerous()) {
+//					System.out.println("Jesus Christ! Is that a "+o.getName()+"!??!");
+//				}
 			}
 		}
 		
@@ -229,6 +229,7 @@ public class G4Diver extends Player {
 	}
 	
 	private void registerWithHeatmap(Collection<Observation> observations) {
+		System.out.println(" reg with heatmap = " + heatmap);
 		for (Observation o: observations) {
 			if (getProtoFromName(o.getName()).getSpeed() == 0) {
 				heatmap.registerStationary(o);
@@ -246,14 +247,17 @@ public class G4Diver extends Player {
 			Set<iSnorkMessage> incomingMessages,
 			Set<Observation> playerLocations) {
 		
-		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
+//		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		position = myPosition;
+		
+		for(Observation o : whatYouSee){
+			System.out.println(" u see - " + o.getId());
+		}
 		
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
 		
 		// Notify the heatmap of stationary creatures
 		registerWithHeatmap(justCreatures);
-		
 		// Select which species to dispatch a report on
 		String speciesToReport = chooseSpeciesToReport(justCreatures);
 		// Map the species to a string message
@@ -290,8 +294,9 @@ public class G4Diver extends Player {
 	}
 	
 	private Direction getSafest() {
-		double safestDanger = 0;
+		double safestDanger = -9999999;
 		Point2D safest = null;
+		System.out.println(" >> myPos = " + position);
 		for (Point2D p: neighbors.keySet()) {
 			Point2D.Double scr = pointPool.get();
 			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
@@ -299,17 +304,18 @@ public class G4Diver extends Player {
 			double potentialDanger;
 			try {
 				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + Math.random();
+				System.out.println(" Potential Danger at " + scr + "" + potentialDanger);
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue; 
 			}
 			
-			if (safest == null || potentialDanger < safestDanger) {
+			if (safest == null || potentialDanger > safestDanger) {
 				safest = scr;
 				safestDanger = potentialDanger;
 			}
 		}
 		pointPool.reset();
-		
+		System.out.println("safets = " + safest);
 		return getNeighbor(position, safest);
 	}
 	
