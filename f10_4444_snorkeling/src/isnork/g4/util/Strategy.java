@@ -74,13 +74,14 @@ public class Strategy {
 		EndGameStrategy endGameStrategy = new EndGameStrategy();
 		Direction nextMove;
 		
+		/*
 		if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(myPosition)){
 			System.out.println(" -endGameStrategy.allowedReturnTimeRadius- ");
 			nextMove = moveTowardBoat();
 			System.out.println(nextMove + "nextMove1");
 			nextMove = dangerAvoidanceStrategy.avoidDanger(nextMove);
 			return nextMove;
-		}
+		}*/
 		
 		nextMove = spiralMove();
 		nextMove = dangerAvoidanceStrategy.avoidDanger(nextMove);

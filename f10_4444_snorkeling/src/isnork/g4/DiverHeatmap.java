@@ -112,15 +112,6 @@ public class DiverHeatmap {
 			
 			return new Point(change_x, change_y);
 		}
-		
-		public float[][] MarkovSimulate(int ticks) {
-			int size = 2 * ticks + 1;
-			float [][] ret = new float[size][size];
-			
-			
-			
-			return ret;
-		}
 	}
 	
 	/**

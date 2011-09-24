@@ -28,7 +28,7 @@ public class EndGameStrategy {
 		return diagonalSteps*3 + axialSteps*2;
 	}
 	
-	public double allowedReturnTimeRadius(double safetyMargin, Strategy strategy){
+	/*public double allowedReturnTimeRadius(double safetyMargin, Strategy strategy){
 		
 		int currentRound = strategy.getCurrentRound();
 		int maxRounds = strategy.getMaxRounds();
@@ -38,7 +38,7 @@ public class EndGameStrategy {
 		// Returns 0.0 when the margin is greater than the remaining time
 		// return Math.max(0.0, (double)(roundsRemaining) - safetyMargin);
 		return (double)(roundsRemaining) - safetyMargin;
-	}
+	}*/
 	
 public double allowedReturnTimeRadius(double safetyMargin, G4Diver g4Diver){
 		

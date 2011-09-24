@@ -7,6 +7,7 @@ import isnork.g4.util.ClusteringStrategy;
 import isnork.g4.util.DirectionsUtil;
 import isnork.g4.util.EndGameStrategy;
 import isnork.g4.util.HeatMap;
+import isnork.g4.util.MarkovSimulator;
 import isnork.g4.util.MessageMap;
 import isnork.g4.util.ObjectPool;
 import isnork.g4.util.Strategy;
@@ -24,7 +25,6 @@ import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 /**
@@ -318,6 +318,7 @@ public class G4Diver extends Player {
 	public String tick(Point2D myPosition, Set<Observation> whatYouSee,
 			Set<iSnorkMessage> incomingMessages,
 			Set<Observation> playerLocations) {
+		currentRound++;
 		
 //		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		position = myPosition;
@@ -477,6 +478,54 @@ public class G4Diver extends Player {
 		return getNeighbor(position, move);
 	}
 	
+	private Direction goToBoat() {
+		Point2D dest = new Point2D.Double(0, 0);
+
+		if (dest.equals(position)) {
+			return Direction.STAYPUT;
+		}
+
+		double x = position.getX();
+		double y = position.getY();
+		double new_x1 = 0, new_y1 = 0, new_x2 = 0, new_y2 = 0, new_x3 = 0, new_y3 = 0;
+		double danger1, danger2, danger3;
+		
+		// first move option, decrease abs of x (or if x == 0, do nothing)
+		if ( Math.abs(x) != 0 ) {
+			new_x1 = (x)/(Math.abs(x))*(Math.abs(x)-1);
+			new_y1 = y;
+			danger1 = heatmap.dangerGet((int)new_x1, (int)new_y1);
+		}
+		else {
+			danger1 = 0;
+		}
+	
+		// second move option, decrease abs of y (or if y == 0, increase abs of y and decrease abs of x)
+		if ( Math.abs(x) != 0 ) {
+			new_x2 = x;
+			new_y2 = (y)/(Math.abs(y))*(Math.abs(y)-1);
+			danger2 = heatmap.dangerGet((int)new_x2, (int)new_y2);
+		}
+		else {
+			danger2 = 0;
+		}
+		
+		// third option (if not on axis) decrease abs of both x and y
+		if ( Math.abs(x) != 0 && Math.abs(y) != 0) {
+			new_x3 = (x)/(Math.abs(x))*(Math.abs(x)-1);
+			new_y3 = (y)/(Math.abs(y))*(Math.abs(y)-1);
+			danger3 = heatmap.dangerGet((int)new_x3, (int)new_y3);
+		}
+		else danger3 = 0;
+		
+		// get the dangers of each step, then find the min of these three
+		
+	    if (Math.min(danger1, danger3) > danger2) return findDirection(position, new Point2D.Double(new_x2, new_y2));
+	    if (Math.min(danger2, danger3) > danger1) return findDirection(position, new Point2D.Double(new_x1, new_y1));
+	    return findDirection(position, new Point2D.Double(new_x3, new_y3));
+	    
+	}
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#getMove()
 	 */
@@ -486,11 +535,13 @@ public class G4Diver extends Player {
 //		System.out.println(" ------------------------- " + getId());
 //		Direction d = strategy.getMove(getId());
 //		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
-				
+		
+		MarkovSimulator.simulate(6, new Point(0, 0), new Point(1, 1));
 		Direction dir = null;
 		try {
-			if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(position)){
-				return getMoveDijkstra(new Point2D.Double(0, 0));
+			if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(position)) {
+				return goToBoat();
+				//return findDirection(position, new Point2D.Double(0, 0));
 			}
 			dir = getSafest();
 			previousDirections.add(dir);
@@ -508,5 +559,48 @@ public class G4Diver extends Player {
 
 	public int getMaxRounds() {
 		return maxRounds;
+	}
+	
+	public static Direction findDirection(Point2D currentPos, Point2D newPos){
+		double currX = currentPos.getX();
+		double currY = currentPos.getY();
+		double newX = newPos.getX();
+		double newY = newPos.getY();
+		
+		// in a quadrant
+		if (currX > newX && currY > newY) {
+			return Direction.NW;
+		}
+		if (currX < newX && currY < newY) {
+			return Direction.SE;
+		}
+		if (currX < newX && currY > newY) {
+			return Direction.NE;
+		}
+		if (currX > newX && currY < newY) {
+			return Direction.SW;
+		}
+
+		// on a line
+		if (currX < newX && currY > newY || currX < newX
+				&& currY == newY) {
+			return Direction.E;
+		}
+		if (currX > newX && currY < newY || currX == newX
+				&& currY < newY) {
+			return Direction.S;
+		}
+
+		if (currX == newX && currY > newY) {
+			return Direction.N;
+		}
+		if (currX > newX && currY == newY) {
+			return Direction.W;
+		}
+		
+		if (currX == newX && currY == newY) return Direction.STAYPUT;
+		
+		return Direction.STAYPUT;
+		
 	}
 }
