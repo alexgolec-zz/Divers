@@ -24,12 +24,17 @@ public class DiverHeatmap {
 	 */
 	public double dangerGet(int x, int y) {
 		refreshDanger();
-		
 		return dangerGetPrivate(x, y);
 	}
-
+	
 	private double dangerGetPrivate(int x, int y) {
-		return danger[x + dimension][y + dimension];
+		double ret = danger[x + dimension][y + dimension];
+		if (ret != 0) {
+//			System.out.println("dangerGetPrivate - Nonzero! "+ret);
+			return ret;
+		}
+//		System.out.println("dangerGetPrivate - Zero! "+ret);
+		return ret;
 	}
 
 	
@@ -141,6 +146,7 @@ public class DiverHeatmap {
 		
 		Point2D pos = o.getLocation();
 		stationaryCreatures.put(o.getId(), new StationaryCreature((int) pos.getX(), (int) pos.getY(), o));
+		System.out.println(" registered " + o.getId());
 	}
 	
 	public void registerMoving(Observation o) {
@@ -168,14 +174,15 @@ public class DiverHeatmap {
 			return;
 		}
 		
+		
 		for (Point p: dangerRadius) {
 			Point cur = new Point((int) c.pos.getX(), (int) c.pos.getY());
-			cur.setLocation(cur.x + p.x, cur.y + cur.y);
-			
+			cur.setLocation(cur.x + p.x, cur.y + p.y);
 			try {
-				double old = dangerGetPrivate(cur.x, cur.y);
+				double old = danger[cur.x + dimension][cur.y + dimension]; //dangerGetPrivate(cur.x, cur.y);
+//				System.out.println("old danger value for "+(cur.x + dimension)+","+(cur.y+dimension)+" is "+danger[cur.x + dimension][cur.y + dimension]);
 				dangerSet(cur.x, cur.y, old - 2 * c.proto.getHappiness());
-				System.out.println("Set danger value to "+dangerGetPrivate(cur.x, cur.y));
+//				System.out.println("new danger value for "+(cur.x + dimension)+","+(cur.y+dimension)+" is "+danger[cur.x + dimension][cur.y + dimension]);
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue;
 			}
@@ -190,6 +197,9 @@ public class DiverHeatmap {
 			return;
 		}
 		
+//		int size = 2 * dimension + 1;
+//		danger = new double[size][size];
+		
 		for (Integer s: stationaryCreatures.keySet()) {
 			putStationaryCreature(stationaryCreatures.get(s));
 		}
@@ -199,18 +209,18 @@ public class DiverHeatmap {
 		danger = null;
 	}
 	
-	public String toString() {
-		String ret = "";
-		
-		for (int i = -dimension; i <= dimension; i++) {
-			for (int j = -dimension; j <= dimension; j++) {
-				 double d = dangerGet(i, j);
-				 if (Math.abs(d) > 0.00001) {
-					 ret += ("("+i+","+j+") -> "+d+"\n");
-				 }
-			}
-		}
-		
-		return ret;
-	}
+//	public String toString() {
+//		String ret = "";
+//		
+//		for (int i = -dimension; i <= dimension; i++) {
+//			for (int j = -dimension; j <= dimension; j++) {
+//				 double d = dangerGet(i, j);
+//				 if (Math.abs(d) > 0.00001) {
+//					 ret += ("("+i+","+j+") -> "+d+"\n");
+//				 }
+//			}
+//		}
+//		
+//		return ret;
+//	}
 }
