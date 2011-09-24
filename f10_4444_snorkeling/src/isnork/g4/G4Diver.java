@@ -4,10 +4,10 @@
 package isnork.g4;
 
 import isnork.g4.util.ClusteringStrategy;
+import isnork.g4.util.DirectionsUtil;
 import isnork.g4.util.EndGameStrategy;
-import isnork.g4.util.MarkovSimulator;
-import isnork.g4.util.MessageMap;
 import isnork.g4.util.HeatMap;
+import isnork.g4.util.MessageMap;
 import isnork.g4.util.ObjectPool;
 import isnork.g4.util.Strategy;
 import isnork.sim.GameObject.Direction;
@@ -18,14 +18,14 @@ import isnork.sim.iSnorkMessage;
 
 import java.awt.Point;
 import java.awt.geom.Point2D;
+import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Comparator;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
 
 /**
  * @author Lenovo
@@ -64,6 +64,7 @@ public class G4Diver extends Player {
 	/** Current and Max Rounds */
 	private int currentRound = 0, maxRounds = 480;
 	private double dangerDensity = 0;
+	private List<Direction> previousDirections = new ArrayList<Direction>();
 	
 	public static Hashtable<Point2D, Direction> neighbors;
 	
@@ -368,14 +369,28 @@ public class G4Diver extends Player {
 		double safestDanger = -9999999;
 		Point2D safest = null;
 		System.out.println(" >> myPos = " + position);
+		
+		Direction lastDirection = null;
+		if(previousDirections.size() != 0){
+			lastDirection = previousDirections.get(previousDirections.size() - 1);
+		}
+		List<Direction> forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
+		
+		Direction relativeDirection = null;
 		for (Point2D p: neighbors.keySet()) {
 			Point2D.Double scr = pointPool.get();
 			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
 			
+			relativeDirection = neighbors.get(p);
 			double potentialDanger;
 			try {
-				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + Math.random() / 100;
-				System.out.println(" Potential Danger at " + scr + "" + potentialDanger);
+				if(forwardDirections.contains(relativeDirection)){
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.27 * random.nextDouble() * 100;
+					System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
+				} else{
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.04 * random.nextDouble() * 100;
+					System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
+				}
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue; 
 			}
@@ -472,11 +487,14 @@ public class G4Diver extends Player {
 //		Direction d = strategy.getMove(getId());
 //		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
 				
+		Direction dir = null;
 		try {
 			if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(position)){
 				return getMoveDijkstra(new Point2D.Double(0, 0));
 			}
-			return getSafest();
+			dir = getSafest();
+			previousDirections.add(dir);
+			return dir;
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
