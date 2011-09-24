@@ -63,6 +63,7 @@ public class G4Diver extends Player {
 	private EndGameStrategy endGameStrategy = new EndGameStrategy();
 	/** Current and Max Rounds */
 	private int currentRound = 0, maxRounds = 480;
+	private double dangerDensity = 0;
 	
 	public static Hashtable<Point2D, Direction> neighbors;
 	
@@ -98,6 +99,9 @@ public class G4Diver extends Player {
 	@Override
 	public void newGame(Set<SeaLifePrototype> seaLifePossibilites, int penalty,
 			int d, int r, int n) {
+
+		dangerDensity = calculateDangerDensity(seaLifePossibilites);
+		
 		if (species == null) {
 			constructPossibilitiesMap(seaLifePossibilites);
 		}
@@ -113,6 +117,68 @@ public class G4Diver extends Player {
 
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
+	
+	
+	/**
+	 * returns the danger density of the board as follows 
+	 * <br><b>density = (totalScore - expectedDangerousScore) / numTotal</b>
+	 * 
+	 * @param seaLifePossibilites
+	 * @return dangerDensity
+	 */
+	public double calculateDangerDensity(Set<SeaLifePrototype> seaLifePossibilites) {
+		double density = 0;
+		int numStaticDangerous = 0, numMovingDangerous = 0, numSafe = 0, numTotal = 0;
+		double totalScore = 0, expectedDangerousScore = 0, individualHappyScore = 0, individualDangerScore = 0, maxHappyCreatureScore = -9999999, maxDangerCreatureScore = -9999999;
+		String maxHappyCreatureName = null, maxDangerCreatureScoreName = null;
+		for(SeaLifePrototype s : seaLifePossibilites){
+			individualHappyScore = 0; individualDangerScore = 0;
+			if(s.getMinCount() > 0){
+				if(s.getMaxCount()<2){
+					individualHappyScore = individualHappyScore + s.getHappiness();
+//					totalScore = totalScore + s.getHappiness();
+				}
+				if(s.getMaxCount()<3){
+					individualHappyScore = individualHappyScore + 0.5*s.getHappiness();
+//					totalScore = totalScore + 0.5*s.getHappiness();
+				}
+				if(s.getMaxCount() >= 3){
+					individualHappyScore = individualHappyScore + 0.25*s.getHappiness();
+//					totalScore = totalScore + 0.25*s.getHappiness();
+				}
+			}
+			totalScore = totalScore + individualHappyScore;
+			
+			if(s.isDangerous()){
+				individualDangerScore = ((s.getMaxCount()+s.getMinCount())/2.0)*(2*s.getHappiness());
+				expectedDangerousScore = expectedDangerousScore + individualDangerScore;
+				if(s.getSpeed() > 0){
+					numMovingDangerous = numMovingDangerous + (int)Math.ceil((s.getMaxCount()+s.getMinCount())/2.0);
+				} else {
+					numStaticDangerous = numStaticDangerous + (int)Math.ceil((s.getMaxCount()+s.getMinCount())/2.0);
+				}
+				
+				if(individualDangerScore > maxDangerCreatureScore){
+					maxDangerCreatureScore = individualDangerScore;
+					maxDangerCreatureScoreName = s.getName();
+				}
+			} else {
+				numSafe = numSafe + (int)Math.ceil((s.getMaxCount()+s.getMinCount())/2.0);
+				if(individualHappyScore > maxHappyCreatureScore){
+					maxHappyCreatureScore = individualHappyScore;
+					maxHappyCreatureName = s.getName();
+				}
+			}
+		}
+		numTotal = numSafe + (numStaticDangerous + numMovingDangerous);
+		density = (totalScore - expectedDangerousScore) / numTotal;
+		System.out.println(numTotal + "," + numSafe + "," + numStaticDangerous + "," + numMovingDangerous);
+		System.out.println(totalScore + ", " + expectedDangerousScore);
+		System.out.println(maxHappyCreatureName + "," + maxHappyCreatureScore + " -- " + maxDangerCreatureScoreName + "," + maxDangerCreatureScore);
+		System.out.println("Density = " + density);
+		return density;
+	}
+	
 	/**
 	 * Convert a string name to a prototype
 	 * @param name the name
