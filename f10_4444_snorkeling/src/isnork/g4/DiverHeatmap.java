@@ -137,7 +137,7 @@ public class DiverHeatmap {
 		
 		Point2D pos = o.getLocation();
 		stationaryCreatures.put(o.getId(), new StationaryCreature((int) pos.getX(), (int) pos.getY(), o));
-		System.out.println(" registered " + o.getId());
+//		System.out.println(" registered " + o.getId());
 	}
 	
 	public void registerMoving(Observation o) {
@@ -146,7 +146,7 @@ public class DiverHeatmap {
 		Point2D op = o.getLocation();
 		Point p = new Point((int) op.getX(), (int) op.getY());
 		
-		System.out.println("Reporting moving creature "+o.getName());
+//		System.out.println("Reporting moving creature "+o.getName());
 		
 		if (movingCreatures.containsKey(o.getId())) {
 			MobileCreature m = movingCreatures.get(o.getId());

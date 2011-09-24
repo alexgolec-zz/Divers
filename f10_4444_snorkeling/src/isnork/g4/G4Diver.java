@@ -173,10 +173,10 @@ public class G4Diver extends Player {
 		}
 		numTotal = numSafe + (numStaticDangerous + numMovingDangerous);
 		density = (totalScore - expectedDangerousScore) / numTotal;
-		System.out.println(numTotal + "," + numSafe + "," + numStaticDangerous + "," + numMovingDangerous);
-		System.out.println(totalScore + ", " + expectedDangerousScore);
-		System.out.println(maxHappyCreatureName + "," + maxHappyCreatureScore + " -- " + maxDangerCreatureScoreName + "," + maxDangerCreatureScore);
-		System.out.println("Density = " + density);
+//		System.out.println(numTotal + "," + numSafe + "," + numStaticDangerous + "," + numMovingDangerous);
+//		System.out.println(totalScore + ", " + expectedDangerousScore);
+//		System.out.println(maxHappyCreatureName + "," + maxHappyCreatureScore + " -- " + maxDangerCreatureScoreName + "," + maxDangerCreatureScore);
+//		System.out.println("Density = " + density);
 		return density;
 	}
 	
@@ -206,7 +206,7 @@ public class G4Diver extends Player {
 		for (Observation o: observations) {
 			if (o.getId() > 0) {
 				ret.add(o);
-				System.out.println("added " + o.getId());
+//				System.out.println("added " + o.getId());
 //				if (o.isDangerous()) {
 //					System.out.println("Jesus Christ! Is that a "+o.getName()+"!??!");
 //				}
@@ -323,9 +323,9 @@ public class G4Diver extends Player {
 //		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		position = myPosition;
 		
-		for(Observation o : whatYouSee){
-			System.out.println(" u see - " + o.getId());
-		}
+//		for(Observation o : whatYouSee){
+//			System.out.println(" u see - " + o.getId());
+//		}
 		
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
 		
@@ -369,7 +369,7 @@ public class G4Diver extends Player {
 	private Direction getSafest() {
 		double safestDanger = -9999999;
 		Point2D safest = null;
-		System.out.println(" >> myPos = " + position);
+//		System.out.println(" >> myPos = " + position);
 		
 		Direction lastDirection = null;
 		if(previousDirections.size() != 0){
@@ -387,10 +387,10 @@ public class G4Diver extends Player {
 			try {
 				if(forwardDirections.contains(relativeDirection)){
 					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.27 * random.nextDouble() * 100;
-					System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
+//					System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
 				} else{
 					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.04 * random.nextDouble() * 100;
-					System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
+//					System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue; 
@@ -402,7 +402,7 @@ public class G4Diver extends Player {
 			}
 		}
 		pointPool.reset();
-		System.out.println("safets = " + safest);
+//		System.out.println("safets = " + safest);
 		return getNeighbor(position, safest);
 	}
 	
@@ -478,7 +478,8 @@ public class G4Diver extends Player {
 		return getNeighbor(position, move);
 	}
 	
-	private Direction goToBoat() {
+	private Direction goToBoatOld() {
+
 		Point2D dest = new Point2D.Double(0, 0);
 
 		if (dest.equals(position)) {
@@ -526,6 +527,52 @@ public class G4Diver extends Player {
 	    
 	}
 	
+	private Direction goToBoat() {
+		if(position.equals(new Point2D.Double(0, 0))){
+			return Direction.STAYPUT;
+		}
+		
+		double safestDanger = -9999999;
+		Point2D safest = null;
+//		System.out.println(" >> myPos = " + position);
+		
+		if(neighbors.keySet().contains(position)){
+			return findDirection(position, new Point2D.Double(0,0));
+		}
+		
+		Direction directionToBoat = findDirection(position, new Point2D.Double(0,0));
+		List<Direction> allowedDirections = (DirectionsUtil.getForwardDirections(directionToBoat));
+		
+		
+		Direction relativeDirection = null;
+		for (Point2D p: neighbors.keySet()) {
+			Point2D.Double scr = pointPool.get();
+			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
+			
+			relativeDirection = neighbors.get(p);
+			double potentialDanger;
+			try {
+				if(allowedDirections.contains(relativeDirection)){
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.27 * random.nextDouble() * 100;
+//					System.out.println(" Potential Danger at allowedDirections " + scr + " = " + potentialDanger);
+				} else{
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.04 * random.nextDouble() * 100;
+//					System.out.println(" Potential Danger at non-allowedDirections " + scr + " = " + potentialDanger);
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {
+				continue; 
+			}
+			
+			if (safest == null || potentialDanger > safestDanger) {
+				safest = scr;
+				safestDanger = potentialDanger;
+			}
+		}
+		pointPool.reset();
+//		System.out.println("safets = " + safest);
+		return getNeighbor(position, safest);
+	}
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#getMove()
 	 */
@@ -539,7 +586,7 @@ public class G4Diver extends Player {
 		MarkovSimulator.simulate(6, new Point(0, 0), new Point(1, 1));
 		Direction dir = null;
 		try {
-			if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(position)) {
+			if(endGameStrategy.allowedReturnTimeRadius((double)50, this) <= endGameStrategy.fastestReturnTime(position)) {
 				return goToBoat();
 				//return findDirection(position, new Point2D.Double(0, 0));
 			}

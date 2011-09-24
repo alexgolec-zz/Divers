@@ -76,11 +76,11 @@ public class MarkovSimulator {
 			for (int j = 0; j < ret[i].length; j++) {
 				double d = ret[i][j];
 				if (i == ticks && j == ticks) {
-					System.out.print("**");
+//					System.out.print("**");
 				}
-				System.out.print(String.format("%1.2g ", d));
+//				System.out.print(String.format("%1.2g ", d));
 			}
-			System.out.println();
+//			System.out.println();
 		}
 		
 		return ret;
