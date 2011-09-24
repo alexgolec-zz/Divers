@@ -4,6 +4,7 @@
 package isnork.g4;
 
 import isnork.g4.util.ClusteringStrategy;
+import isnork.g4.util.EndGameStrategy;
 import isnork.g4.util.MarkovSimulator;
 import isnork.g4.util.MessageMap;
 import isnork.g4.util.HeatMap;
@@ -58,6 +59,10 @@ public class G4Diver extends Player {
 	/** The dimension of the board. */
 	int dimension;
 	ObjectPool<Point2D.Double> pointPool;
+	/** EndGameStrategy object */
+	private EndGameStrategy endGameStrategy = new EndGameStrategy();
+	/** Current and Max Rounds */
+	private int currentRound = 0, maxRounds = 480;
 	
 	public static Hashtable<Point2D, Direction> neighbors;
 	
@@ -230,7 +235,6 @@ public class G4Diver extends Player {
 	}
 	
 	private void registerWithHeatmap(Collection<Observation> observations) {
-		System.out.println(" reg with heatmap = " + heatmap);
 		for (Observation o: observations) {
 			if (getProtoFromName(o.getName()).getSpeed() == 0) {
 				heatmap.registerStationary(o);
@@ -403,12 +407,22 @@ public class G4Diver extends Player {
 //		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
 				
 		try {
-			//return getMoveDijkstra(new Point2D.Double(5, 5));
+			if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(position)){
+				return getMoveDijkstra(new Point2D.Double(0, 0));
+			}
 			return getSafest();
 		} catch (Exception e) {
 			e.printStackTrace();
 			System.exit(-1);
 		}
 		return null;
+	}
+
+	public int getCurrentRound() {
+		return currentRound;
+	}
+
+	public int getMaxRounds() {
+		return maxRounds;
 	}
 }

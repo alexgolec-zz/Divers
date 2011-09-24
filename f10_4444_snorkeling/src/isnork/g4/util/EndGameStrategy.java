@@ -1,5 +1,7 @@
 package isnork.g4.util;
 
+import isnork.g4.G4Diver;
+
 import java.awt.geom.Point2D;
 
 public class EndGameStrategy {
@@ -30,6 +32,18 @@ public class EndGameStrategy {
 		
 		int currentRound = strategy.getCurrentRound();
 		int maxRounds = strategy.getMaxRounds();
+		int roundsRemaining = maxRounds - currentRound;
+		
+		// returns the number of rounds remaining, less a safety margin
+		// Returns 0.0 when the margin is greater than the remaining time
+		// return Math.max(0.0, (double)(roundsRemaining) - safetyMargin);
+		return (double)(roundsRemaining) - safetyMargin;
+	}
+	
+public double allowedReturnTimeRadius(double safetyMargin, G4Diver g4Diver){
+		
+		int currentRound = g4Diver.getCurrentRound();
+		int maxRounds = g4Diver.getMaxRounds();
 		int roundsRemaining = maxRounds - currentRound;
 		
 		// returns the number of rounds remaining, less a safety margin
