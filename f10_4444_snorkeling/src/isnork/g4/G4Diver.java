@@ -520,7 +520,8 @@ public class G4Diver extends Player {
 //		System.out.println(" ------------------------- " + getId());
 //		Direction d = strategy.getMove(getId());
 //		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
-				
+		
+		MarkovSimulator.simulate(6, new Point(0, 0), new Point(1, 1));
 		try {
 			if(endGameStrategy.allowedReturnTimeRadius((double)30, this) <= endGameStrategy.fastestReturnTime(position)) {
 				return goToBoat();
