@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_22" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>treasure.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1000</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>treasure</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>mine.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>50</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>40</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>40</int> 
+  </void> 
+  <void property="name"> 
+   <string>mine</string> 
+  </void> 
+ </object> 
+</java> 

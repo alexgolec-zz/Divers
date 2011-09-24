@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_17" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>locknessmonster.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>1000</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Loch-Ness Monster</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>seaweed.png</string> 
+  </void> 
+  <void property="maxCount"> 
+   <int>100</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>50</int> 
+  </void> 
+  <void property="name"> 
+   <string>Sea Weed</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>clarus.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>10</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="name"> 
+   <string>Dogcowfish</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>sea-horse.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>10</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="name"> 
+   <string>Sea horse</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+</java> 

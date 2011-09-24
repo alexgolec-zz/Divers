@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_17" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>crab.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>20</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>10</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="name"> 
+   <string>Crab</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>turtle.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>12</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>7</int> 
+  </void> 
+  <void property="name"> 
+   <string>Turtle</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>dolphin.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>50</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>6</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>4</int> 
+  </void> 
+  <void property="name"> 
+   <string>Dolphin</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>shrimp.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>30</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>25</int> 
+  </void> 
+  <void property="name"> 
+   <string>Shrimp</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>pirate.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>100</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Pirate Ship</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>seaweed.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>3</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>50</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>50</int> 
+  </void> 
+  <void property="name"> 
+   <string>Seaweed</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>octopus.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>50</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>4</int> 
+  </void> 
+  <void property="name"> 
+   <string>Octopus</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>nemo.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>500</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Nemo</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>shark.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>500</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>2</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>1</int> 
+  </void> 
+  <void property="name"> 
+   <string>Shark EATS YOU</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+</java> 

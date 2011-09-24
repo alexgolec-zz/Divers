@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?> 
+<java version="1.6.0_20" class="java.beans.XMLDecoder"> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>coral.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>10</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="name"> 
+   <string>Beautiful Coral</string> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="dangerous"> 
+   <boolean>true</boolean> 
+  </void> 
+  <void property="filename"> 
+   <string>jellyfish.png</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>8</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>20</int> 
+  </void> 
+  <void property="name"> 
+   <string>Jelly-fish</string> 
+  </void> 
+  <void property="speed"> 
+   <int>1</int> 
+  </void> 
+ </object> 
+ <object class="isnork.sim.SeaLifePrototype"> 
+  <void property="filename"> 
+   <string>sea_lions.jpg</string> 
+  </void> 
+  <void property="happiness"> 
+   <int>5</int> 
+  </void> 
+  <void property="maxCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="minCount"> 
+   <int>5</int> 
+  </void> 
+  <void property="name"> 
+   <string>Sea Lions</string> 
+  </void> 
+ </object> 
+</java> 

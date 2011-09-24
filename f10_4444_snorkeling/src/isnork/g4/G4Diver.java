@@ -323,9 +323,9 @@ public class G4Diver extends Player {
 //		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		position = myPosition;
 		
-//		for(Observation o : whatYouSee){
-//			System.out.println(" u see - " + o.getId());
-//		}
+		for(Observation o : whatYouSee){
+			System.out.println(" u see - " + o.getId());
+		}
 		
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
 		
