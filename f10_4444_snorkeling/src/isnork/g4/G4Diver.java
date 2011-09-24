@@ -582,7 +582,7 @@ public class G4Diver extends Player {
 		
 		if (currX == newX && currY == newY) return Direction.STAYPUT;
 		
-		return Direction.N;
+		return Direction.STAYPUT;
 		
 	}
 }
