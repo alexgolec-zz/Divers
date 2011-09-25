@@ -51,7 +51,7 @@ public class GameConfig {
 		this.randomSeed = randomSeed;
 		random = new Random(randomSeed);
 	}
-	public static int d = 5;
+	public static int d = 30;
 	int num_divers = 1;
 	long randomSeed = 2;//System.currentTimeMillis();
 	
@@ -70,7 +70,7 @@ public class GameConfig {
 		return d;
 	}
 
-	int r = 3;
+	int r = 5;
 
 	public void setR(int r) {
 		this.r = r;

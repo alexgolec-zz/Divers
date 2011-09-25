@@ -60,11 +60,11 @@ public class G4Diver extends Player {
 	int dimension;
 	ObjectPool<Point2D.Double> pointPool;
 	/** EndGameStrategy object */
-	private EndGameStrategy endGameStrategy = new EndGameStrategy();
+	private EndGameStrategy endGameStrategy = null;
 	/** Current and Max Rounds */
 	private int currentRound = 0, maxRounds = 480;
 	private double dangerDensity = 0;
-	private List<Direction> previousDirections = new ArrayList<Direction>();
+	private List<Direction> previousDirections = null;
 	
 	public static Hashtable<Point2D, Direction> neighbors;
 	
@@ -103,9 +103,7 @@ public class G4Diver extends Player {
 
 		dangerDensity = calculateDangerDensity(seaLifePossibilites);
 		
-		if (species == null) {
-			constructPossibilitiesMap(seaLifePossibilites);
-		}
+		constructPossibilitiesMap(seaLifePossibilites);
 		reportedStationaries = new HashSet<Integer>();
 		
 //		seaBoard = new HeatMap(seaLifePossibilites, d);
@@ -115,7 +113,9 @@ public class G4Diver extends Player {
 		heatmap = new DiverHeatmap(d);
 		dimension = d;
 		pointPool = new ObjectPool<Point2D.Double>(Point2D.Double.class);
-
+		previousDirections = new ArrayList<Direction>();
+		endGameStrategy = new EndGameStrategy();
+		
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
 	
@@ -303,6 +303,7 @@ public class G4Diver extends Player {
 	
 	private void registerWithHeatmap(Collection<Observation> observations) {
 		for (Observation o: observations) {
+			System.out.println(" - registerWithHeatmap - " + (getProtoFromName(o.getName())==null) + " for" +  o.getName());
 			if (getProtoFromName(o.getName()).getSpeed() == 0) {
 				heatmap.registerStationary(o);
 			} else {
@@ -318,14 +319,15 @@ public class G4Diver extends Player {
 	public String tick(Point2D myPosition, Set<Observation> whatYouSee,
 			Set<iSnorkMessage> incomingMessages,
 			Set<Observation> playerLocations) {
+		try{
 		currentRound++;
 		
 //		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		position = myPosition;
 		
-		for(Observation o : whatYouSee){
-			System.out.println(" u see - " + o.getId());
-		}
+//		for(Observation o : whatYouSee){
+//			System.out.println(" u see - " + o.getId());
+//		}
 		
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
 		
@@ -340,6 +342,11 @@ public class G4Diver extends Player {
 		lastCreatureObservations = archiveObservations(whatYouSee);
 		
 		return message;
+		}catch(Exception e){
+			e.printStackTrace();
+			System.exit(1);
+		}
+		return null;
 	}
 	
 	private Direction getNeighbor(Point2D current, Point2D neighbor) {
