@@ -303,7 +303,7 @@ public class G4Diver extends Player {
 	
 	private void registerWithHeatmap(Collection<Observation> observations) {
 		for (Observation o: observations) {
-			System.out.println(" - registerWithHeatmap - " + (getProtoFromName(o.getName())==null) + " for" +  o.getName());
+//			System.out.println(" - registerWithHeatmap - " + (getProtoFromName(o.getName())==null) + " for" +  o.getName());
 			if (getProtoFromName(o.getName()).getSpeed() == 0) {
 				heatmap.registerStationary(o);
 			} else {
