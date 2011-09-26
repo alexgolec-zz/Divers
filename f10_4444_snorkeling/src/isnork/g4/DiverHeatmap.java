@@ -91,11 +91,11 @@ public class DiverHeatmap {
 	 * @author alexgolec
 	 */
 	private class MobileCreature extends CreatureSighting {
-		private Point lastPos;
+		private Point lastPos = null;
+		private Point lastDir = null;
 		
 		public MobileCreature(int x, int y, Observation o) {
 			super(x, y, o);
-			lastPos = null;
 		}
 		
 		public void setPos(Point pos) {
@@ -110,7 +110,11 @@ public class DiverHeatmap {
 			int change_x = pos.x - lastPos.x;
 			int change_y = pos.y - lastPos.y;
 			
-			return new Point(change_x, change_y);
+			if (change_x != 0 || change_y != 0) {
+				lastDir = new Point(change_x, change_y);
+			}
+			
+			return lastDir;
 		}
 	}
 	
@@ -139,14 +143,15 @@ public class DiverHeatmap {
 		stationaryCreatures.put(o.getId(), new StationaryCreature((int) pos.getX(), (int) pos.getY(), o));
 //		System.out.println(" registered " + o.getId());
 	}
-	
 	public void registerMoving(Observation o) {
 		invalidateDanger();
 
 		Point2D op = o.getLocation();
 		Point p = new Point((int) op.getX(), (int) op.getY());
-		
-//		System.out.println("Reporting moving creature "+o.getName());
+
+		if (o.isDangerous()) {
+			System.out.println("Putting "+o.getName());
+		}
 		
 		if (movingCreatures.containsKey(o.getId())) {
 			MobileCreature m = movingCreatures.get(o.getId());
@@ -164,22 +169,52 @@ public class DiverHeatmap {
 		if (!c.proto.isDangerous()) {
 			return;
 		}
-		
-		
+		placeDangerousCreature(c, 1);
+	}
+	
+	/**
+	 * Place a dangerous creature onto the heatmap. This creature must definitely be dangerous,
+	 * and there is no checking performed to make sure it is. 
+	 * @param s the sighting of the creature itself
+	 * @param prob the probability of the creature appearing on the square
+	 */
+	private void placeDangerousCreature(CreatureSighting s, double prob) {
 		for (Point p: dangerRadius) {
-			Point cur = new Point((int) c.pos.getX(), (int) c.pos.getY());
+			Point cur = new Point((int) s.pos.getX(), (int) s.pos.getY());
 			cur.setLocation(cur.x + p.x, cur.y + p.y);
 			try {
-				double old = danger[cur.x + dimension][cur.y + dimension]; //dangerGetPrivate(cur.x, cur.y);
-//				System.out.println("old danger value for "+(cur.x + dimension)+","+(cur.y+dimension)+" is "+danger[cur.x + dimension][cur.y + dimension]);
-				dangerSet(cur.x, cur.y, old - 2 * c.proto.getHappiness());
-//				System.out.println("new danger value for "+(cur.x + dimension)+","+(cur.y+dimension)+" is "+danger[cur.x + dimension][cur.y + dimension]);
+				double old = dangerGetPrivate(cur.x, cur.y);
+				dangerSet(cur.x, cur.y, old - 2 * prob * s.proto.getHappiness());
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue;
 			}
 		}
 	}
 	
+	/**
+	 * Put a mobile creature onto the map
+	 * @param c the creature to place
+	 */
+	private void putMobileCreature(MobileCreature c) {
+		if (!c.proto.isDangerous()) {
+			return;
+		}
+		
+		Point dir = c.getDirection();
+		if (dir == null) {
+			return;
+		}
+		
+		double [][] probs = MarkovSimulator.simulate(3, c.pos, dir);
+		for (int i = 0; i < probs.length; i++) {
+			for (int j = 0; j < probs[0].length; j++) {
+				System.out.println("putting heatmap for creature "+i+","+j+" "+probs[i][j]);
+				placeDangerousCreature(c, probs[i][j]);
+			}
+		}
+	}
+	
+	int ct = 0;
 	private void refreshDanger() {
 		if (danger == null) {
 			int size = 2 * dimension + 1;
@@ -194,6 +229,18 @@ public class DiverHeatmap {
 		for (Integer s: stationaryCreatures.keySet()) {
 			putStationaryCreature(stationaryCreatures.get(s));
 		}
+		for (Integer s: movingCreatures.keySet()) {
+			putMobileCreature(movingCreatures.get(s));
+		}
+		
+		/*
+		for (int i = 0; i < danger.length; i++) {
+			for (int j = 0; j < danger[i].length; j++) {
+				System.out.print(" "+danger[i][j]);
+			}
+			System.out.println();
+		}
+		*/
 	}
 	
 	private void invalidateDanger() {

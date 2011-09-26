@@ -392,12 +392,12 @@ public class G4Diver extends Player {
 			relativeDirection = neighbors.get(p);
 			double potentialDanger;
 			try {
-				if(forwardDirections.contains(relativeDirection)){
-					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.27 * random.nextDouble() * 100;
-//					System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
+				if(forwardDirections.contains(relativeDirection)) {
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);// + 0.27 * random.nextDouble();
+					//System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
 				} else{
-					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.04 * random.nextDouble() * 100;
-//					System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);// + 0.04 * random.nextDouble();
+					//System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
 				}
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue; 
