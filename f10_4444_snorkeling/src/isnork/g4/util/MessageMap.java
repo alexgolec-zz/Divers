@@ -39,8 +39,8 @@ public class MessageMap {
 		for (SeaLifePrototype p: lst) {
 			String message = String.valueOf(currentCharacter);
 			table.put(p.getName(), message);
-			System.out.println("Species " + p.getName() + " (" + 
-					p.getHappiness() + ") will be reported by " + currentCharacter);
+//			System.out.println("Species " + p.getName() + " (" + 
+//					p.getHappiness() + ") will be reported by " + currentCharacter);
 			
 			if (currentCharacter != 'z') {
 				currentCharacter++;
@@ -49,19 +49,19 @@ public class MessageMap {
 				reverse.put(message, set);
 			} else {
 				HashSet<String> set;
-				System.out.println(" 1 ");
+//				System.out.println(" 1 ");
 				try {
 					set = reverse.get(message);
 					if(set == null){
 						set = new HashSet<String>(2);
 					}
-					System.out.println(" 2 " + (set==null) + (reverse.get(message)==null));
+//					System.out.println(" 2 " + (set==null) + (reverse.get(message)==null));
 				} catch (NullPointerException e) {
 					set = new HashSet<String>(2);
 					reverse.put(message, set);
-					System.out.println(" 3 ");
+//					System.out.println(" 3 ");
 				}
-				System.out.println(" 4 " + (set==null));
+//				System.out.println(" 4 " + (set==null));
 				set.add(p.getName());
 			}
 		}
