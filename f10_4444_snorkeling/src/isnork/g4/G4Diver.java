@@ -204,7 +204,7 @@ public class G4Diver extends Player {
 		HashSet<Observation> ret = new HashSet<Observation>();
 		
 		for (Observation o: observations) {
-			if (o.getId() > 0) {
+			if (o.getId() >= 0) {
 				ret.add(o);
 //				System.out.println("added " + o.getId());
 //				if (o.isDangerous()) {
@@ -303,10 +303,12 @@ public class G4Diver extends Player {
 	
 	private void registerWithHeatmap(Collection<Observation> observations) {
 		for (Observation o: observations) {
-//			System.out.println(" - registerWithHeatmap - " + (getProtoFromName(o.getName())==null) + " for" +  o.getName());
+			System.out.println(" - registerWithHeatmap - " + (getProtoFromName(o.getName())==null) + " for" +  o.getName());
 			if (getProtoFromName(o.getName()).getSpeed() == 0) {
+				System.out.println("registerStationary - " + o.getId());
 				heatmap.registerStationary(o);
 			} else {
+				System.out.println("registerMoving - " + o.getId());
 				heatmap.registerMoving(o);
 			}
 		}
@@ -325,9 +327,9 @@ public class G4Diver extends Player {
 //		strategy.updateAfterEachTick(myPosition, whatYouSee, incomingMessages, playerLocations, getId());
 		position = myPosition;
 		
-//		for(Observation o : whatYouSee){
-//			System.out.println(" u see - " + o.getId());
-//		}
+		for(Observation o : whatYouSee){
+			System.out.println(" u see - " + o.getId());
+		}
 		
 		Set<Observation> justCreatures = creaturesFilter(whatYouSee);
 		

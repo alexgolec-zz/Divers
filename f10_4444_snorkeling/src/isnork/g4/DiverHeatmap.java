@@ -169,7 +169,7 @@ public class DiverHeatmap {
 		if (!c.proto.isDangerous()) {
 			return;
 		}
-		placeDangerousCreature(c, 1);
+		placeDangerousCreature(c.pos.x, c.pos.y, 1, c.proto.getHappinessD());
 	}
 	
 	/**
@@ -178,13 +178,13 @@ public class DiverHeatmap {
 	 * @param s the sighting of the creature itself
 	 * @param prob the probability of the creature appearing on the square
 	 */
-	private void placeDangerousCreature(CreatureSighting s, double prob) {
+	private void placeDangerousCreature(int x, int y, double prob, double happiness) {
 		for (Point p: dangerRadius) {
-			Point cur = new Point((int) s.pos.getX(), (int) s.pos.getY());
+			Point cur = new Point(x, y);
 			cur.setLocation(cur.x + p.x, cur.y + p.y);
 			try {
 				double old = dangerGetPrivate(cur.x, cur.y);
-				dangerSet(cur.x, cur.y, old - 2 * prob * s.proto.getHappiness());
+				dangerSet(cur.x, cur.y, old - 2 * prob * happiness);
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue;
 			}
@@ -205,11 +205,12 @@ public class DiverHeatmap {
 			return;
 		}
 		
-		double [][] probs = MarkovSimulator.simulate(3, c.pos, dir);
-		for (int i = 0; i < probs.length; i++) {
-			for (int j = 0; j < probs[0].length; j++) {
-				System.out.println("putting heatmap for creature "+i+","+j+" "+probs[i][j]);
-				placeDangerousCreature(c, probs[i][j]);
+		double [][] probs = MarkovSimulator.simulate(6, c.pos, dir);
+		int probsDim = (probs.length - 1) / 2;
+		
+		for (int i = -probsDim; i < probsDim; i++) {
+			for (int j = -probsDim; j < probsDim; j++) {
+				placeDangerousCreature(c.pos.x + i, c.pos.y + j, probs[i+probsDim][j+probsDim], c.proto.getHappinessD());
 			}
 		}
 	}
@@ -232,15 +233,6 @@ public class DiverHeatmap {
 		for (Integer s: movingCreatures.keySet()) {
 			putMobileCreature(movingCreatures.get(s));
 		}
-		
-		/*
-		for (int i = 0; i < danger.length; i++) {
-			for (int j = 0; j < danger[i].length; j++) {
-				System.out.print(" "+danger[i][j]);
-			}
-			System.out.println();
-		}
-		*/
 	}
 	
 	private void invalidateDanger() {
