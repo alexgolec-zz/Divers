@@ -25,6 +25,7 @@ import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -418,6 +419,8 @@ public class G4Diver extends Player {
 			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
 		}
 		
+		LinkedList<Point2D> safePoints = new LinkedList<Point2D>();
+		
 		Direction relativeDirection = null;
 		for (Point2D p: neighbors.keySet()) {
 			Point2D.Double scr = pointPool.get();
@@ -426,6 +429,11 @@ public class G4Diver extends Player {
 			relativeDirection = neighbors.get(p);
 			double potentialDanger;
 			try {
+				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);
+				if (potentialDanger == 0) {
+					safePoints.add(scr);
+				}
+				/*
 				if(forwardDirections.contains(relativeDirection)) {
 					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.27 * random.nextDouble();
 					//System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
@@ -433,6 +441,7 @@ public class G4Diver extends Player {
 					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.04 * random.nextDouble();
 					//System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
 				}
+				*/
 			} catch (ArrayIndexOutOfBoundsException e) {
 				continue; 
 			}
@@ -444,7 +453,12 @@ public class G4Diver extends Player {
 		}
 		pointPool.reset();
 //		System.out.println("safets = " + safest);
-		return getNeighbor(position, safest);
+		if (safePoints.size() == 0) {
+			return getNeighbor(position, safest);
+		} else {
+			Collections.shuffle(safePoints);
+			return getNeighbor(position, safePoints.getFirst());
+		}
 	}
 	
 	private Direction getSafestForVeryDangerousBoards() {
@@ -775,6 +789,7 @@ public class G4Diver extends Player {
 			} else {
 				dir = getSafest();
 			}
+			dir = getSafest();
 			previousDirections.add(dir);
 			if(previousDirections.size() > 30){
 				List<Direction> lastFiveDirections  = new ArrayList<Direction>(previousDirections.subList(previousDirections.size()-5, previousDirections.size()-1));
