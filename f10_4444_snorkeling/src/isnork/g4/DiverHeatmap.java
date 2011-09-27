@@ -12,6 +12,7 @@ import isnork.sim.SeaLifePrototype;
 public class DiverHeatmap {
 	private int dimension;
 	private double[][] danger = null;
+	private double[][] happiness = null;
 	/** Mapping from id of observation to creature. */
 	private Hashtable<Integer, StationaryCreature> stationaryCreatures;
 	private Hashtable<Integer, MobileCreature> movingCreatures;
@@ -29,15 +30,9 @@ public class DiverHeatmap {
 	
 	private double dangerGetPrivate(int x, int y) {
 		double ret = danger[x + dimension][y + dimension];
-		if (ret != 0) {
-//			System.out.println("dangerGetPrivate - Nonzero! "+ret);
-			return ret;
-		}
-//		System.out.println("dangerGetPrivate - Zero! "+ret);
 		return ret;
 	}
 
-	
 	/**
 	 * Utility function to set values in the danger matrix
 	 * @param x the x position
@@ -46,6 +41,19 @@ public class DiverHeatmap {
 	 */
 	private void dangerSet(int x, int y, double val) {
 		danger[x + dimension][y + dimension] = val;
+	}
+	
+	public double happyGet(int x, int y) {
+		refreshHappiness();
+		return happyGetPrivate(x, y);
+	}
+	
+	private double happyGetPrivate(int x, int y) {
+		return happiness[x + dimension][y + dimension];
+	}
+	
+	private void happySet(int x, int y, double val) {
+		happiness[x + dimension][y + dimension] = val;
 	}
 	
 	private static Point[] dangerRadius;
@@ -237,6 +245,40 @@ public class DiverHeatmap {
 	
 	private void invalidateDanger() {
 		danger = null;
+	}
+	
+	private void refreshHappiness() {
+		if (happiness == null) {
+			int size = 2 * dimension + 1;
+			happiness = new double[size][size];
+		} else {
+			return;
+		}
+		
+		// TODO Happiness placing goes here
+	}
+	
+	private void placeStationaryHappiness(int radius, StationaryCreature c) {
+		int squares = 0;
+		for (int i = -radius; i <= radius; i++) {
+			for (int j = -radius; j <= radius; j++) {
+				if (Math.sqrt(i*i + j*j) < radius) {
+					continue;
+				}
+				
+				squares++;
+			}
+		}
+		double diffuseHappiness = c.proto.getHappinessD() / squares;
+		for (int i = -radius; i <= radius; i++) {
+			for (int j = -radius; j <= radius; j++) {
+				if (Math.sqrt(i*i + j*j) < radius) {
+					continue;
+				}
+				happySet(c.pos.x + i, c.pos.y +j, diffuseHappiness);
+			}
+		}
+
 	}
 	
 //	public String toString() {
