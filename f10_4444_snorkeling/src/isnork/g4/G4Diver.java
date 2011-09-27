@@ -21,6 +21,7 @@ import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashSet;
 import java.util.Hashtable;
@@ -59,6 +60,7 @@ public class G4Diver extends Player {
 	/** The dimension of the board. */
 	int dimension;
 	int visibilityRadius;
+	int numDivers;
 	ObjectPool<Point2D.Double> pointPool;
 	/** EndGameStrategy object */
 	private EndGameStrategy endGameStrategy = null;
@@ -67,6 +69,7 @@ public class G4Diver extends Player {
 	private double dangerDensity = 0;
 	private List<Direction> previousDirections = null;
 	private boolean boardVeryDangerous = false, boardVeryVeryDangerous = false;
+	private double respectableScoreForBoardPerPlayer = 0;
 	
 	public static Hashtable<Point2D, Direction> neighbors;
 	
@@ -115,6 +118,7 @@ public class G4Diver extends Player {
 		heatmap = new DiverHeatmap(d);
 		dimension = d;
 		visibilityRadius = r;
+		numDivers = n;
 		pointPool = new ObjectPool<Point2D.Double>(Point2D.Double.class);
 		previousDirections = new ArrayList<Direction>();
 		endGameStrategy = new EndGameStrategy();
@@ -138,7 +142,7 @@ public class G4Diver extends Player {
 		int numStaticDangerous = 0, numMovingDangerous = 0, numSafe = 0, numTotal = 0;
 		double totalScore = 0, expectedDangerousScore = 0, individualHappyScore = 0, individualDangerScore = 0, maxHappyCreatureScore = -9999999, maxDangerCreatureScore = -9999999;
 		String maxHappyCreatureName = null, maxDangerCreatureScoreName = null;
-		boardVeryDangerous = false; boardVeryVeryDangerous = false;
+		boardVeryDangerous = false; boardVeryVeryDangerous = false; respectableScoreForBoardPerPlayer = 0;
 		for(SeaLifePrototype s : seaLifePossibilites){
 			individualHappyScore = 0; individualDangerScore = 0;
 			if(s.getMinCount() > 0){
@@ -193,6 +197,9 @@ public class G4Diver extends Player {
 			boardVeryVeryDangerous = true;
 			boardVeryDangerous = false;
 		}
+		
+		respectableScoreForBoardPerPlayer = (totalScore - expectedDangerousScore)/2;
+		System.out.println("respectableScoreForBoardPerPlayer --- " + respectableScoreForBoardPerPlayer);
 		return density;
 	}
 	
@@ -487,7 +494,86 @@ public class G4Diver extends Player {
 	}
 	
 	private Direction getSafestForVeryVeryDangerousBoards(){
-		return Direction.STAYPUT;
+		Hashtable<Double, List<Direction>> directionsMap = new Hashtable<Double, List<Direction>>();
+		double safestDanger = -9999999;
+		Point2D safest = null;
+//		System.out.println(" >> myPos = " + position);
+		
+		Direction lastDirection = null;
+		if(previousDirections.size() != 0){
+			lastDirection = previousDirections.get(previousDirections.size() - 1);
+		}
+		
+		List<Direction> forwardDirections = null;
+		if(Math.abs(position.getX()) > dimension-visibilityRadius || Math.abs(position.getY()) > dimension-visibilityRadius){
+			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
+		}else{
+			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
+		}
+		
+		Direction relativeDirection = null;
+		List<Direction> refDirections = null;
+		for (Point2D p: neighbors.keySet()) {
+			Point2D.Double scr = pointPool.get();
+			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
+			
+			relativeDirection = neighbors.get(p);
+			double potentialDanger;
+			try {
+				if(forwardDirections.contains(relativeDirection)) {
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);// + 0.27 * random.nextDouble();
+					//System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
+				} else{
+					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);// + 0.04 * random.nextDouble();
+					//System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
+				}
+			} catch (ArrayIndexOutOfBoundsException e) {
+				continue; 
+			}
+			
+			refDirections = directionsMap.get(Double.parseDouble(""+potentialDanger));
+			if(refDirections == null){
+				directionsMap.put(potentialDanger, new ArrayList<Direction>());
+			}else{
+				directionsMap.get(Double.parseDouble(""+potentialDanger)).add(getNeighbor(position, scr));
+			}
+			
+			if (safest == null || potentialDanger > safestDanger) {
+				safest = scr;
+				safestDanger = potentialDanger;
+			}
+			
+		}
+		pointPool.reset();
+		
+//		for(double d : directionsMap.keySet()){
+//			for(Direction dir : directionsMap.get(d)){
+//				System.out.println("getSafestForVeryVeryDangerousBoards - directionsMap - d = " + d + " - dir = " + dir);
+//			}
+//		}
+//		
+//		System.out.println("getSafestForVeryVeryDangerousBoards - safestDanger = " + safestDanger);
+		
+		if(position.distance(0, 0) > 1.5){
+			return findDirection(position, new Point2D.Double(0,0));
+		}
+		
+		if(safestDanger < 0){
+			return findDirection(position, new Point2D.Double(0,0));
+		}
+		
+		refDirections = directionsMap.get(Double.parseDouble(""+safestDanger));
+		
+//		for(Direction d : refDirections){
+//			System.out.println("getSafestForVeryVeryDangerousBoards - refDirections - d = " + d);
+//		}
+
+		Collections.shuffle(refDirections, random);
+		if(refDirections != null && refDirections.size() > 0){
+			return refDirections.get(0);
+		} else {
+			return Direction.STAYPUT;
+		}
 	}
 	
 	private Direction getMoveDijkstra(Point2D dest) {
