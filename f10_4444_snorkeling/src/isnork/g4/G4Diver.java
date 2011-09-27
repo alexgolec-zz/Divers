@@ -341,6 +341,11 @@ public class G4Diver extends Player {
 		}
 	}
 	
+	private void receiveMessage(iSnorkMessage message) {
+		Point pos = new Point((int) message.getLocation().getX(), (int) message.getLocation().getY());
+		heatmap.reportStationaryMessage(messageMap, message.getMsg(), pos);
+	}
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#tick(java.awt.geom.Point2D, java.util.Set, java.util.Set, java.util.Set)
 	 */
@@ -362,6 +367,9 @@ public class G4Diver extends Player {
 		
 		// Notify the heatmap of stationary creatures
 		registerWithHeatmap(justCreatures);
+		for (iSnorkMessage m: incomingMessages) {
+			receiveMessage(m);
+		}
 		// Select which species to dispatch a report on
 		String speciesToReport = chooseSpeciesToReport(justCreatures);
 		// Map the species to a string message

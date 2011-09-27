@@ -88,7 +88,7 @@ public class MessageMap {
 	}
 	
 	/**
-	 * Take a message and resolve it to a 
+	 * Take a message and resolve it to a set of possible creatures.
 	 * @param message
 	 * @return
 	 */
