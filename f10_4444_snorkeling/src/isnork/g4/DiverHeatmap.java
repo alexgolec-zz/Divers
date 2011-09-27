@@ -16,6 +16,9 @@ public class DiverHeatmap {
 	/** Mapping from id of observation to creature. */
 	private Hashtable<Integer, StationaryCreature> stationaryCreatures;
 	private Hashtable<Integer, MobileCreature> movingCreatures;
+	private Hashtable<Integer, StationaryCreature> stationaryReports;
+	private HashSet<Point> seenPoints;
+	private int radius;
 	
 	/**
 	 * Utility function to perform fetching from the danger matrix.
@@ -130,10 +133,12 @@ public class DiverHeatmap {
 	 * Create a new empty heatmap
 	 * @param dimension the dimension parameter of the board
 	 */
-	public DiverHeatmap(int dimension) {
+	public DiverHeatmap(int dimension, int rad) {
 		this.dimension = dimension;
 		stationaryCreatures = new Hashtable<Integer, StationaryCreature>();
 		movingCreatures = new Hashtable<Integer, MobileCreature>();
+		seenPoints = new HashSet<Point>();
+		radius = rad;
 	}
 
 	/**
@@ -167,6 +172,15 @@ public class DiverHeatmap {
 		} else {
 			movingCreatures.put(o.getId(), new MobileCreature(p.x, p.y, o));
 		}
+	}
+	
+	public void reportStationaryMessage(Observation o) {
+		if (stationaryReports.contains(o.getId())) {
+			return;
+		}
+		invalidateHappiness();
+		stationaryReports.put(o.getId(),
+				new StationaryCreature((int) o.getLocation().getX(), (int) o.getLocation().getY(), o)); 
 	}
 	
 	/**
@@ -223,7 +237,6 @@ public class DiverHeatmap {
 		}
 	}
 	
-	int ct = 0;
 	private void refreshDanger() {
 		if (danger == null) {
 			int size = 2 * dimension + 1;
@@ -247,6 +260,10 @@ public class DiverHeatmap {
 		danger = null;
 	}
 	
+	private void invalidateHappiness() {
+		happiness = null;
+	}
+	
 	private void refreshHappiness() {
 		if (happiness == null) {
 			int size = 2 * dimension + 1;
@@ -255,7 +272,10 @@ public class DiverHeatmap {
 			return;
 		}
 		
-		// TODO Happiness placing goes here
+		for (Integer k: stationaryReports.keySet()) {
+			StationaryCreature s = stationaryReports.get(k);
+			placeStationaryHappiness(radius, s);
+		}
 	}
 	
 	private void placeStationaryHappiness(int radius, StationaryCreature c) {
@@ -263,6 +283,10 @@ public class DiverHeatmap {
 		for (int i = -radius; i <= radius; i++) {
 			for (int j = -radius; j <= radius; j++) {
 				if (Math.sqrt(i*i + j*j) < radius) {
+					continue;
+				}
+				
+				if (seenPoints.contains(new Point(c.pos.x + i, c.pos.y + j))) {
 					continue;
 				}
 				
@@ -275,10 +299,18 @@ public class DiverHeatmap {
 				if (Math.sqrt(i*i + j*j) < radius) {
 					continue;
 				}
+				
+				if (seenPoints.contains(new Point(c.pos.x + i, c.pos.y + j))) {
+					continue;
+				}
+				
 				happySet(c.pos.x + i, c.pos.y +j, diffuseHappiness);
 			}
 		}
-
+	}
+	
+	public void reportMove(Point m) {
+		seenPoints.add(m);
 	}
 	
 //	public String toString() {

@@ -116,7 +116,7 @@ public class G4Diver extends Player {
 //		strategy = new Strategy(seaLifePossibilites, penalty, d, r, n, random);
 		
 		messageMap = new MessageMap(seaLifePossibilites);
-		heatmap = new DiverHeatmap(d);
+		heatmap = new DiverHeatmap(d, r);
 		dimension = d;
 		visibilityRadius = r;
 		numDivers = n;
