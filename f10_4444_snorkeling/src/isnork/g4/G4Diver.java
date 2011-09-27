@@ -419,7 +419,7 @@ public class G4Diver extends Player {
 			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
 		}
 		
-		LinkedList<Point2D> safePoints = new LinkedList<Point2D>();
+		ArrayList<Point2D> safePoints = new ArrayList<Point2D>();
 		
 		Direction relativeDirection = null;
 		for (Point2D p: neighbors.keySet()) {
@@ -457,7 +457,7 @@ public class G4Diver extends Player {
 			return getNeighbor(position, safest);
 		} else {
 			Collections.shuffle(safePoints);
-			return getNeighbor(position, safePoints.getFirst());
+			return getNeighbor(position, safePoints.get(0));
 		}
 	}
 	
@@ -767,7 +767,6 @@ public class G4Diver extends Player {
 //		Direction d = strategy.getMove(getId());
 //		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
 		double endGameFactor = dimension;
-		MarkovSimulator.simulate(6, new Point(0, 0), new Point(1, 1));
 		Direction dir = null;
 		try {
 			if(boardVeryDangerous){

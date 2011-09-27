@@ -1,7 +1,7 @@
 package isnork.g4.util;
 
 import java.awt.Point;
-import java.util.Formatter;
+import java.util.Hashtable;
 
 public class MarkovSimulator {
 	private static boolean isDiagonal(int dirx, int diry) {
@@ -9,6 +9,12 @@ public class MarkovSimulator {
 	}
 	
 	static int count;
+	
+	private static Hashtable<Integer, Hashtable<Point, double[][]>> cache;
+	
+	static {
+		cache = new Hashtable<Integer, Hashtable<Point,double[][]>>();
+	}
 	
 	private static void simulateRecursively(
 			int currentTick,
@@ -66,9 +72,21 @@ public class MarkovSimulator {
 	 * @return array of probabilities for the position of the creature
 	 */
 	public static double[][] simulate(int ticks, Point pos, Point dir) {
+		Hashtable<Point, double[][]> tickCache;
+		tickCache = cache.get(ticks);
+		if (tickCache == null) {
+			tickCache = new Hashtable<Point, double[][]>();
+			cache.put(ticks, tickCache);
+		}
+		
+		double[][] ret = tickCache.get(dir);
+		if (ret != null) {
+			return ret;
+		}
+		
 		// One move immediately, then up to one every 2 ticks
 		int size = 2 * (1 + ticks / 2) + 1;
-		double [][] ret = new double[size][size];
+		ret = new double[size][size];
 		count = 0;
 		simulateRecursively(0, ticks, pos, pos, dir.x, dir.y, 1, ret);
 		
@@ -76,12 +94,11 @@ public class MarkovSimulator {
 			for (int j = 0; j < ret[i].length; j++) {
 				double d = ret[i][j];
 				if (i == ticks && j == ticks) {
-//					System.out.print("**");
 				}
-//				System.out.print(String.format("%1.2g ", d));
 			}
-//			System.out.println();
 		}
+		
+		tickCache.put(dir, ret);
 		
 		return ret;
 	}
