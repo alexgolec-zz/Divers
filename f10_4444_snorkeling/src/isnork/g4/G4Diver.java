@@ -760,6 +760,7 @@ public class G4Diver extends Player {
 				safestDanger = potentialDanger;
 			}
 		}
+		
 		pointPool.reset();
 //		System.out.println("safets = " + safest);
 		return getNeighbor(position, safest);

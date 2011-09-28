@@ -339,13 +339,26 @@ public class DiverHeatmap {
 					continue;
 				}
 				
-				happySet(c.reportPos.x + i, c.reportPos.y +j, diffuseHappiness);
+				try {
+					happySet(c.reportPos.x + i, c.reportPos.y +j, diffuseHappiness);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					continue;
+				}
 			}
 		}
 	}
 	
-	public void reportLocation(Point m) {
-		seenPoints.add(m);
+	public void reportLocation(Point2D m) {
+		Point p = new Point((int) m.getX(), (int) m.getY());
+		seenPoints.add(p);
+		refreshHappiness();
+		for (int i = 0; i < happiness.length; i++) {
+			for (int j = 0; j < happiness[0].length; j++) {
+				System.out.print(" "+happiness[i][j]);
+			}
+			System.out.println();
+		}
+		System.exit(1);
 	}
 	
 //	public String toString() {
