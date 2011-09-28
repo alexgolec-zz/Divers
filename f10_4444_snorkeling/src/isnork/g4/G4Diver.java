@@ -190,7 +190,7 @@ public class G4Diver extends Player {
 //		System.out.println(maxHappyCreatureName + "," + maxHappyCreatureScore + " -- " + maxDangerCreatureScoreName + "," + maxDangerCreatureScore);
 //		System.out.println("Density = " + density);
 		
-		if((numStaticDangerous + numMovingDangerous) >= 5*numSafe || expectedDangerousScore > totalScore){
+		if((numStaticDangerous + numMovingDangerous) >= 5*numSafe || expectedDangerousScore > 2*totalScore){
 			// board is too damm dangerous
 			boardVeryDangerous = true;
 		}
@@ -477,51 +477,82 @@ public class G4Diver extends Player {
 		}
 	}
 	
-//	private Direction getSafestForVeryDangerousBoards() {
-//		double safestDanger = -9999999;
-//		Point2D safest = null;
-////		System.out.println(" >> myPos = " + position);
-//		
+	private Direction getSafestForVeryDangerousBoards() {
+		double safestDanger = -9999999;
+		Point2D safest = null;
+//		System.out.println(" >> myPos = " + position);
+		
 //		Direction lastDirection = null;
 //		if(previousDirections.size() != 0){
 //			lastDirection = previousDirections.get(previousDirections.size() - 1);
 //		}
-//		
+		
 //		List<Direction> forwardDirections = null;
 //		if(Math.abs(position.getX()) > dimension-visibilityRadius || Math.abs(position.getY()) > dimension-visibilityRadius){
-//			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
+//			forwardDirections = (DirectionsUtil.getPerpendicularDirections(lastDirection));
 //		}else{
 //			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
 //		}
-//		
-//		Direction relativeDirection = null;
-//		for (Point2D p: neighbors.keySet()) {
-//			Point2D.Double scr = pointPool.get();
-//			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
-//			
-//			relativeDirection = neighbors.get(p);
-//			double potentialDanger;
-//			try {
+		
+		ArrayList<Point2D> safePoints = new ArrayList<Point2D>();
+		ArrayList<Direction> safePointsDirection = new ArrayList<Direction>();
+		
+		Direction relativeDirection = null;
+		for (Point2D p: neighbors.keySet()) {
+			Point2D.Double scr = pointPool.get();
+			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
+			
+			relativeDirection = neighbors.get(p);
+			double potentialDanger;
+			try {
+				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);
+				if (potentialDanger == 0) {
+					safePoints.add(scr);
+				}
+				
 //				if(forwardDirections.contains(relativeDirection)) {
-//					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.2 * random.nextDouble();
+//					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.27 * random.nextDouble();
 //					//System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
-//				} else{
-//					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.08 * random.nextDouble();
+//				} else {
+//					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.04 * random.nextDouble();
 //					//System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
 //				}
-//			} catch (ArrayIndexOutOfBoundsException e) {
-//				continue; 
+				
+				if (potentialDanger >= 0) {
+					safePoints.add(scr);
+					safePointsDirection.add(relativeDirection);
+				}
+				
+			} catch (ArrayIndexOutOfBoundsException e) {
+				continue; 
+			}
+			
+			if (safest == null || potentialDanger > safestDanger) {
+				safest = scr;
+				safestDanger = potentialDanger;
+			}
+		}
+		pointPool.reset();
+//		System.out.println("safets = " + safest);
+//		if(explore){
+////			System.out.println("explore - " + findDirection(position, safest));
+//			return findDirection(position, safest);
+//		}else{
+//			if (safePoints.size() == 0) {
+//				return getNeighbor(position, safest);
+//			} else {
+////				System.out.println("----- " + heatmap.getHappiestDirectionFromList(safePointsDirection));
+//				Direction toReturn = heatmap.getHappiestDirectionFromList(safePointsDirection);
+//				if(toReturn != null){
+//					return toReturn;
+//				}
+				if(safePoints.size()<=0){
+					return getNeighbor(position, safest);
+				}
+				Collections.shuffle(safePoints, random);
+				return getNeighbor(position, safePoints.get(0)); 
 //			}
-//			
-//			if (safest == null || potentialDanger > safestDanger) {
-//				safest = scr;
-//				safestDanger = potentialDanger;
-//			}
-//		}
-//		pointPool.reset();
-////		System.out.println("safets = " + safest);
-//		return getNeighbor(position, safest);
-//	}
+	}
 	
 	private Direction getSafestForVeryVeryDangerousBoards(){
 		if(currentRound<4){
@@ -756,9 +787,11 @@ public class G4Diver extends Player {
 				}
 				return goToBoat();
 			}
-//			if(boardVeryDangerous){
-//				dir=getSafestForVeryDangerousBoards();
-//			} else 
+			System.out.println(boardVeryDangerous + "," + boardVeryVeryDangerous);
+			if(boardVeryDangerous){
+//				dir = getSafest(true);
+				dir=getSafestForVeryDangerousBoards();
+			} else 
 			if(boardVeryVeryDangerous){
 				dir=getSafestForVeryVeryDangerousBoards();
 			} 
