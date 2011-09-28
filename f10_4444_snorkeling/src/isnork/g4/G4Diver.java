@@ -420,6 +420,7 @@ public class G4Diver extends Player {
 		}
 		
 		ArrayList<Point2D> safePoints = new ArrayList<Point2D>();
+		ArrayList<Direction> safePointsDirection = new ArrayList<Direction>();
 		
 		Direction relativeDirection = null;
 		for (Point2D p: neighbors.keySet()) {
@@ -444,6 +445,7 @@ public class G4Diver extends Player {
 				
 				if (potentialDanger >= 0) {
 					safePoints.add(scr);
+					safePointsDirection.add(relativeDirection);
 				}
 				
 			} catch (ArrayIndexOutOfBoundsException e) {
@@ -457,11 +459,17 @@ public class G4Diver extends Player {
 		}
 		pointPool.reset();
 //		System.out.println("safets = " + safest);
+//		return getNeighbor(position, safest);
 		if (safePoints.size() == 0) {
 			return getNeighbor(position, safest);
 		} else {
+			System.out.println("----- " + heatmap.getHappiestDirectionFromList(safePointsDirection));
+			Direction toReturn = heatmap.getHappiestDirectionFromList(safePointsDirection);
+			if(toReturn != null){
+				return toReturn;
+			}
 			Collections.shuffle(safePoints, random);
-			return getNeighbor(position, safePoints.get(0));
+			return getNeighbor(position, safePoints.get(0)); 
 		}
 	}
 	

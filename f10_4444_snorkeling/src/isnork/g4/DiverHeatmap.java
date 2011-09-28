@@ -1,13 +1,16 @@
 package isnork.g4;
 
+import isnork.g4.util.MarkovSimulator;
+import isnork.sim.GameObject.Direction;
+import isnork.sim.Observation;
+import isnork.sim.SeaLifePrototype;
+
 import java.awt.Point;
 import java.awt.geom.Point2D;
 import java.util.HashSet;
 import java.util.Hashtable;
-
-import isnork.g4.util.MarkovSimulator;
-import isnork.sim.Observation;
-import isnork.sim.SeaLifePrototype;
+import java.util.Iterator;
+import java.util.List;
 
 public class DiverHeatmap {
 	private int dimension;
@@ -137,6 +140,7 @@ public class DiverHeatmap {
 		this.dimension = dimension;
 		stationaryCreatures = new Hashtable<Integer, StationaryCreature>();
 		movingCreatures = new Hashtable<Integer, MobileCreature>();
+		stationaryReports = new Hashtable<Integer, StationaryCreature>();
 		seenPoints = new HashSet<Point>();
 		radius = rad;
 	}
@@ -311,6 +315,102 @@ public class DiverHeatmap {
 	
 	public void reportMove(Point m) {
 		seenPoints.add(m);
+	}
+	
+	public double getHappyInQuadrant(Direction dir){
+		double happyValue = 0;
+		if(dir==Direction.E){
+			for(int x=0; x<dimension; x++){
+				for(int y=-(x/2); y<=(x/2); y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(x, y);
+				}
+			}
+		} else if(dir==Direction.E){
+			for(int x=0; x<dimension; x++){
+				for(int y=-(x/2); y<=(x/2); y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(x*-1, y);
+				}
+			}
+		} else if(dir==Direction.N){
+			for(int x=0; x<dimension; x++){
+				for(int y=-(x/2); y<=(x/2); y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(y, x*-1);
+				}
+			}
+		} else if(dir==Direction.S){
+			for(int x=0; x<dimension; x++){
+				for(int y=-(x/2); y<=(x/2); y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(y, x);
+				}
+			}
+		}
+		
+		else if(dir==Direction.SE){
+			for(int x=0; x<dimension; x++){
+				for(int y=(x/2); y<=2*x; y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(x, y);
+				}
+			}
+		} else if(dir==Direction.NW){
+			for(int x=0; x<dimension; x++){
+				for(int y=(x/2); y<=2*x; y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(x*-1, y*-1);
+				}
+			}
+		} else if(dir==Direction.SW){
+			for(int x=0; x<dimension; x++){
+				for(int y=(x/2); y<=2*x; y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(x*-1, y);
+				}
+			}
+		} else if(dir==Direction.NE){
+			for(int x=0; x<dimension; x++){
+				for(int y=(x/2); y<=2*x; y++){
+					if(Math.abs(x) >= dimension || Math.abs(y) >= dimension){
+						continue;
+					}
+					happyValue += happyGet(x, y*-1);
+				}
+			}
+		}
+		System.out.println(" happy for " + dir + " is " + happyValue);
+		return happyValue;
+	}
+	
+	public Direction getHappiestDirectionFromList(List<Direction> dirs){
+		Direction maxHappyDir = null, refDirection;
+		double maxHappy = 0;
+		Iterator<Direction> i = dirs.iterator();
+		while(i.hasNext()){
+			refDirection = i.next();
+			double tempHappy = getHappyInQuadrant(refDirection);
+			if(tempHappy > maxHappy){
+				maxHappy = tempHappy;
+				maxHappyDir = refDirection;
+			}
+		}
+		return maxHappyDir;
 	}
 	
 //	public String toString() {
