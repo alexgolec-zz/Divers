@@ -787,7 +787,7 @@ public class G4Diver extends Player {
 				}
 				return goToBoat();
 			}
-			System.out.println(boardVeryDangerous + "," + boardVeryVeryDangerous);
+//			System.out.println(boardVeryDangerous + "," + boardVeryVeryDangerous);
 			if(boardVeryDangerous){
 //				dir = getSafest(true);
 				dir=getSafestForVeryDangerousBoards();
