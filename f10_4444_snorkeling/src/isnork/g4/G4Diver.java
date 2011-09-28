@@ -124,8 +124,8 @@ public class G4Diver extends Player {
 		previousDirections = new ArrayList<Direction>();
 		endGameStrategy = new EndGameStrategy();
 		
-		System.out.println("boardVeryDangerous = " + (boardVeryDangerous==true));
-		System.out.println("boardVeryVeryDangerous = " + (boardVeryVeryDangerous==true));
+//		System.out.println("boardVeryDangerous = " + (boardVeryDangerous==true));
+//		System.out.println("boardVeryVeryDangerous = " + (boardVeryVeryDangerous==true));
 		
 		ClusteringStrategy.getInstance().initialize(d, n, getId());
 	}
@@ -185,8 +185,8 @@ public class G4Diver extends Player {
 		}
 		numTotal = numSafe + (numStaticDangerous + numMovingDangerous);
 		density = (totalScore - expectedDangerousScore) / numTotal;
-		System.out.println("Num --- " + numTotal + "," + numSafe + "," + numStaticDangerous + "," + numMovingDangerous);
-		System.out.println("Score --- " + totalScore + ", " + expectedDangerousScore);
+//		System.out.println("Num --- " + numTotal + "," + numSafe + "," + numStaticDangerous + "," + numMovingDangerous);
+//		System.out.println("Score --- " + totalScore + ", " + expectedDangerousScore);
 //		System.out.println(maxHappyCreatureName + "," + maxHappyCreatureScore + " -- " + maxDangerCreatureScoreName + "," + maxDangerCreatureScore);
 //		System.out.println("Density = " + density);
 		
@@ -199,8 +199,8 @@ public class G4Diver extends Player {
 			boardVeryDangerous = false;
 		}
 		
-		respectableScoreForBoardPerPlayer = (totalScore - expectedDangerousScore)/2;
-		System.out.println("respectableScoreForBoardPerPlayer --- " + respectableScoreForBoardPerPlayer);
+		respectableScoreForBoardPerPlayer = 3*(totalScore)/2;
+//		System.out.println("respectableScoreForBoardPerPlayer --- " + respectableScoreForBoardPerPlayer);
 		return density;
 	}
 	
@@ -402,7 +402,7 @@ public class G4Diver extends Player {
 		return best;
 	}
 	
-	private Direction getSafest() {
+	private Direction getSafest(boolean explore) {
 		double safestDanger = -9999999;
 		Point2D safest = null;
 //		System.out.println(" >> myPos = " + position);
@@ -414,7 +414,7 @@ public class G4Diver extends Player {
 		
 		List<Direction> forwardDirections = null;
 		if(Math.abs(position.getX()) > dimension-visibilityRadius || Math.abs(position.getY()) > dimension-visibilityRadius){
-			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
+			forwardDirections = (DirectionsUtil.getPerpendicularDirections(lastDirection));
 		}else{
 			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
 		}
@@ -459,126 +459,110 @@ public class G4Diver extends Player {
 		}
 		pointPool.reset();
 //		System.out.println("safets = " + safest);
-//		return getNeighbor(position, safest);
-		if (safePoints.size() == 0) {
-			return getNeighbor(position, safest);
-		} else {
-			System.out.println("----- " + heatmap.getHappiestDirectionFromList(safePointsDirection));
-			Direction toReturn = heatmap.getHappiestDirectionFromList(safePointsDirection);
-			if(toReturn != null){
-				return toReturn;
+		if(explore){
+//			System.out.println("explore - " + findDirection(position, safest));
+			return findDirection(position, safest);
+		}else{
+			if (safePoints.size() == 0) {
+				return getNeighbor(position, safest);
+			} else {
+//				System.out.println("----- " + heatmap.getHappiestDirectionFromList(safePointsDirection));
+				Direction toReturn = heatmap.getHappiestDirectionFromList(safePointsDirection);
+				if(toReturn != null){
+					return toReturn;
+				}
+				Collections.shuffle(safePoints, random);
+				return getNeighbor(position, safePoints.get(0)); 
 			}
-			Collections.shuffle(safePoints, random);
-			return getNeighbor(position, safePoints.get(0)); 
 		}
 	}
 	
-	private Direction getSafestForVeryDangerousBoards() {
-		double safestDanger = -9999999;
-		Point2D safest = null;
-//		System.out.println(" >> myPos = " + position);
-		
-		Direction lastDirection = null;
-		if(previousDirections.size() != 0){
-			lastDirection = previousDirections.get(previousDirections.size() - 1);
-		}
-		
-		List<Direction> forwardDirections = null;
-		if(Math.abs(position.getX()) > dimension-visibilityRadius || Math.abs(position.getY()) > dimension-visibilityRadius){
-			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
-		}else{
-			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
-		}
-		
-		Direction relativeDirection = null;
-		for (Point2D p: neighbors.keySet()) {
-			Point2D.Double scr = pointPool.get();
-			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
-			
-			relativeDirection = neighbors.get(p);
-			double potentialDanger;
-			try {
-				if(forwardDirections.contains(relativeDirection)) {
-					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.2 * random.nextDouble();
-					//System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
-				} else{
-					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.08 * random.nextDouble();
-					//System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				continue; 
-			}
-			
-			if (safest == null || potentialDanger > safestDanger) {
-				safest = scr;
-				safestDanger = potentialDanger;
-			}
-		}
-		pointPool.reset();
-//		System.out.println("safets = " + safest);
-		return getNeighbor(position, safest);
-	}
-	
-	private Direction getSafestForVeryVeryDangerousBoards(){
-		Hashtable<Double, List<Direction>> directionsMap = new Hashtable<Double, List<Direction>>();
-		double safestDanger = -9999999;
-		Point2D safest = null;
-//		System.out.println(" >> myPos = " + position);
-		
-		Direction lastDirection = null;
-		if(previousDirections.size() != 0){
-			lastDirection = previousDirections.get(previousDirections.size() - 1);
-		}
-		
-		List<Direction> forwardDirections = null;
-		if(Math.abs(position.getX()) > dimension-visibilityRadius || Math.abs(position.getY()) > dimension-visibilityRadius){
-			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
-		}else{
-			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
-		}
-		
-		Direction relativeDirection = null;
-		List<Direction> refDirections = null;
-		for (Point2D p: neighbors.keySet()) {
-			Point2D.Double scr = pointPool.get();
-			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
-			
-			relativeDirection = neighbors.get(p);
-			double potentialDanger;
-			try {
-				if(forwardDirections.contains(relativeDirection)) {
-					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);// + 0.27 * random.nextDouble();
-					//System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
-				} else{
-					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);// + 0.04 * random.nextDouble();
-					//System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
-				}
-			} catch (ArrayIndexOutOfBoundsException e) {
-				continue; 
-			}
-			
-			refDirections = directionsMap.get(Double.parseDouble(""+potentialDanger));
-			if(refDirections == null){
-				directionsMap.put(potentialDanger, new ArrayList<Direction>());
-			}else{
-				directionsMap.get(Double.parseDouble(""+potentialDanger)).add(getNeighbor(position, scr));
-			}
-			
-			if (safest == null || potentialDanger > safestDanger) {
-				safest = scr;
-				safestDanger = potentialDanger;
-			}
-			
-		}
-		pointPool.reset();
-		
-//		for(double d : directionsMap.keySet()){
-//			for(Direction dir : directionsMap.get(d)){
-//				System.out.println("getSafestForVeryVeryDangerousBoards - directionsMap - d = " + d + " - dir = " + dir);
-//			}
+//	private Direction getSafestForVeryDangerousBoards() {
+//		double safestDanger = -9999999;
+//		Point2D safest = null;
+////		System.out.println(" >> myPos = " + position);
+//		
+//		Direction lastDirection = null;
+//		if(previousDirections.size() != 0){
+//			lastDirection = previousDirections.get(previousDirections.size() - 1);
 //		}
 //		
-//		System.out.println("getSafestForVeryVeryDangerousBoards - safestDanger = " + safestDanger);
+//		List<Direction> forwardDirections = null;
+//		if(Math.abs(position.getX()) > dimension-visibilityRadius || Math.abs(position.getY()) > dimension-visibilityRadius){
+//			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
+//		}else{
+//			forwardDirections = (DirectionsUtil.getForwardDirections(lastDirection));
+//		}
+//		
+//		Direction relativeDirection = null;
+//		for (Point2D p: neighbors.keySet()) {
+//			Point2D.Double scr = pointPool.get();
+//			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
+//			
+//			relativeDirection = neighbors.get(p);
+//			double potentialDanger;
+//			try {
+//				if(forwardDirections.contains(relativeDirection)) {
+//					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.2 * random.nextDouble();
+//					//System.out.println(" Potential Danger at fwd directon " + scr + " = " + potentialDanger);
+//				} else{
+//					potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y) + 0.08 * random.nextDouble();
+//					//System.out.println(" Potential Danger at non-fwd direction " + scr + " = " + potentialDanger);
+//				}
+//			} catch (ArrayIndexOutOfBoundsException e) {
+//				continue; 
+//			}
+//			
+//			if (safest == null || potentialDanger > safestDanger) {
+//				safest = scr;
+//				safestDanger = potentialDanger;
+//			}
+//		}
+//		pointPool.reset();
+////		System.out.println("safets = " + safest);
+//		return getNeighbor(position, safest);
+//	}
+	
+	private Direction getSafestForVeryVeryDangerousBoards(){
+		if(currentRound<4){
+			return Direction.STAYPUT;
+		}
+		double safestDanger = -9999999, tempDistance = 999999;
+		Point2D safest = null, bestPoint = null;
+		
+		ArrayList<Point2D> safePoints = new ArrayList<Point2D>();
+		
+		Direction relativeDirection = null;
+		for (Point2D p: neighbors.keySet()) {
+			Point2D.Double scr = pointPool.get();
+			scr.setLocation(p.getX() + position.getX(), p.getY() + position.getY());
+			
+			relativeDirection = neighbors.get(p);
+			double potentialDanger;
+			try {
+				potentialDanger = heatmap.dangerGet((int) scr.x, (int) scr.y);
+			} catch (ArrayIndexOutOfBoundsException e) {
+				continue; 
+			}
+			
+			if (safest == null || potentialDanger > safestDanger) {
+				safest = scr;
+				safestDanger = potentialDanger;
+			}
+			
+			if(potentialDanger>=0){
+				safePoints.add(scr);
+				if(scr.distance(0, 0) < tempDistance){
+					tempDistance = scr.distance(0, 0);
+					bestPoint = scr;
+				}
+			}
+		}
+		pointPool.reset();
+		
+		if(bestPoint!=null && bestPoint.distance(0, 0) < 2){
+			return getNeighbor(position, bestPoint);
+		}
 		
 		if(position.distance(0, 0) > 1.5){
 			return findDirection(position, new Point2D.Double(0,0));
@@ -588,140 +572,129 @@ public class G4Diver extends Player {
 			return findDirection(position, new Point2D.Double(0,0));
 		}
 		
-		refDirections = directionsMap.get(Double.parseDouble(""+safestDanger));
-		
-//		for(Direction d : refDirections){
-//			System.out.println("getSafestForVeryVeryDangerousBoards - refDirections - d = " + d);
+		return getNeighbor(position, safest);
+	}
+	
+//	private Direction getMoveDijkstra(Point2D dest) {
+//		HashSet<Point2D> visited = new HashSet<Point2D>();
+//		Hashtable<Point2D, Double> indices = new Hashtable<Point2D, Double>();
+//		Hashtable<Point2D, Point2D> predecessors = new Hashtable<Point2D, Point2D>();
+//		
+//		indices.put(position, heatmap.dangerGet((int) position.getX(), (int) position.getY()));
+//		
+//		if (dest.equals(position)) {
+//			return Direction.STAYPUT;
 //		}
-
-		Collections.shuffle(refDirections, random);
-		if(refDirections != null && refDirections.size() > 0){
-			return refDirections.get(0);
-		} else {
-			return Direction.STAYPUT;
-		}
-	}
+//		
+//		while (indices.size() != 0) {
+//			Point2D current = getLargest(indices);
+//			double index = indices.get(current);
+//			if (current.equals(dest)) {
+//				break;
+//			}
+//			indices.remove(current);
+//			visited.add(current);
+//			
+//			for (Point2D p: neighbors.keySet()) {
+//				Point2D.Double scr = pointPool.get();
+//				scr.setLocation(p.getX() + current.getX(), p.getY() + current.getY());
+//				
+//				if (visited.contains(scr)) {
+//					continue;
+//				}
+//				
+//				boolean put = false;
+//				
+//				double thisIndex;
+//				try {
+//					thisIndex = index + heatmap.dangerGet((int) scr.getX(), (int) scr.getY());
+//				} catch (ArrayIndexOutOfBoundsException e) {
+//					continue;
+//				}
+//				
+//				try {
+//					double oldIndex = indices.get(scr);
+//					if (oldIndex > thisIndex) {
+//						put = true;
+//					}
+//				} catch (NullPointerException e) {
+//					put = true;
+//				}
+//				
+//				if (put) {
+//					indices.put(scr, thisIndex);
+//					predecessors.put(scr, current);
+//				}
+//			}
+//		}
+//		
+//		if (indices.size() == 0) {
+//			return null;
+//		}
+//		
+//		pointPool.reset();
+//		
+//		Point2D move = dest;
+//		while (true) {
+//			Point2D next = predecessors.get(move);
+//			if (next.equals(position)) {
+//				break;
+//			} else {
+//				move = next;
+//			}
+//		}
+//		
+//		return getNeighbor(position, move);
+//	}
 	
-	private Direction getMoveDijkstra(Point2D dest) {
-		HashSet<Point2D> visited = new HashSet<Point2D>();
-		Hashtable<Point2D, Double> indices = new Hashtable<Point2D, Double>();
-		Hashtable<Point2D, Point2D> predecessors = new Hashtable<Point2D, Point2D>();
-		
-		indices.put(position, heatmap.dangerGet((int) position.getX(), (int) position.getY()));
-		
-		if (dest.equals(position)) {
-			return Direction.STAYPUT;
-		}
-		
-		while (indices.size() != 0) {
-			Point2D current = getLargest(indices);
-			double index = indices.get(current);
-			if (current.equals(dest)) {
-				break;
-			}
-			indices.remove(current);
-			visited.add(current);
-			
-			for (Point2D p: neighbors.keySet()) {
-				Point2D.Double scr = pointPool.get();
-				scr.setLocation(p.getX() + current.getX(), p.getY() + current.getY());
-				
-				if (visited.contains(scr)) {
-					continue;
-				}
-				
-				boolean put = false;
-				
-				double thisIndex;
-				try {
-					thisIndex = index + heatmap.dangerGet((int) scr.getX(), (int) scr.getY());
-				} catch (ArrayIndexOutOfBoundsException e) {
-					continue;
-				}
-				
-				try {
-					double oldIndex = indices.get(scr);
-					if (oldIndex > thisIndex) {
-						put = true;
-					}
-				} catch (NullPointerException e) {
-					put = true;
-				}
-				
-				if (put) {
-					indices.put(scr, thisIndex);
-					predecessors.put(scr, current);
-				}
-			}
-		}
-		
-		if (indices.size() == 0) {
-			return null;
-		}
-		
-		pointPool.reset();
-		
-		Point2D move = dest;
-		while (true) {
-			Point2D next = predecessors.get(move);
-			if (next.equals(position)) {
-				break;
-			} else {
-				move = next;
-			}
-		}
-		
-		return getNeighbor(position, move);
-	}
-	
-	private Direction goToBoatOld() {
-
-		Point2D dest = new Point2D.Double(0, 0);
-
-		if (dest.equals(position)) {
-			return Direction.STAYPUT;
-		}
-
-		double x = position.getX();
-		double y = position.getY();
-		double new_x1 = 0, new_y1 = 0, new_x2 = 0, new_y2 = 0, new_x3 = 0, new_y3 = 0;
-		double danger1, danger2, danger3;
-		
-		// first move option, decrease abs of x (or if x == 0, do nothing)
-		if ( Math.abs(x) != 0 ) {
-			new_x1 = (x)/(Math.abs(x))*(Math.abs(x)-1);
-			new_y1 = y;
-			danger1 = heatmap.dangerGet((int)new_x1, (int)new_y1);
-		}
-		else {
-			danger1 = 0;
-		}
-	
-		// second move option, decrease abs of y (or if y == 0, increase abs of y and decrease abs of x)
-		if ( Math.abs(x) != 0 ) {
-			new_x2 = x;
-			new_y2 = (y)/(Math.abs(y))*(Math.abs(y)-1);
-			danger2 = heatmap.dangerGet((int)new_x2, (int)new_y2);
-		}
-		else {
-			danger2 = 0;
-		}
-		
-		// third option (if not on axis) decrease abs of both x and y
-		if ( Math.abs(x) != 0 && Math.abs(y) != 0) {
-			new_x3 = (x)/(Math.abs(x))*(Math.abs(x)-1);
-			new_y3 = (y)/(Math.abs(y))*(Math.abs(y)-1);
-			danger3 = heatmap.dangerGet((int)new_x3, (int)new_y3);
-		}
-		else danger3 = 0;
-		
-		// get the dangers of each step, then find the min of these three
-		
-	    if (Math.min(danger1, danger3) > danger2) return findDirection(position, new Point2D.Double(new_x2, new_y2));
-	    if (Math.min(danger2, danger3) > danger1) return findDirection(position, new Point2D.Double(new_x1, new_y1));
-	    return findDirection(position, new Point2D.Double(new_x3, new_y3));
-	    
-	}
+//	private Direction goToBoatOld() {
+//
+//		Point2D dest = new Point2D.Double(0, 0);
+//
+//		if (dest.equals(position)) {
+//			return Direction.STAYPUT;
+//		}
+//
+//		double x = position.getX();
+//		double y = position.getY();
+//		double new_x1 = 0, new_y1 = 0, new_x2 = 0, new_y2 = 0, new_x3 = 0, new_y3 = 0;
+//		double danger1, danger2, danger3;
+//		
+//		// first move option, decrease abs of x (or if x == 0, do nothing)
+//		if ( Math.abs(x) != 0 ) {
+//			new_x1 = (x)/(Math.abs(x))*(Math.abs(x)-1);
+//			new_y1 = y;
+//			danger1 = heatmap.dangerGet((int)new_x1, (int)new_y1);
+//		}
+//		else {
+//			danger1 = 0;
+//		}
+//	
+//		// second move option, decrease abs of y (or if y == 0, increase abs of y and decrease abs of x)
+//		if ( Math.abs(x) != 0 ) {
+//			new_x2 = x;
+//			new_y2 = (y)/(Math.abs(y))*(Math.abs(y)-1);
+//			danger2 = heatmap.dangerGet((int)new_x2, (int)new_y2);
+//		}
+//		else {
+//			danger2 = 0;
+//		}
+//		
+//		// third option (if not on axis) decrease abs of both x and y
+//		if ( Math.abs(x) != 0 && Math.abs(y) != 0) {
+//			new_x3 = (x)/(Math.abs(x))*(Math.abs(x)-1);
+//			new_y3 = (y)/(Math.abs(y))*(Math.abs(y)-1);
+//			danger3 = heatmap.dangerGet((int)new_x3, (int)new_y3);
+//		}
+//		else danger3 = 0;
+//		
+//		// get the dangers of each step, then find the min of these three
+//		
+//	    if (Math.min(danger1, danger3) > danger2) return findDirection(position, new Point2D.Double(new_x2, new_y2));
+//	    if (Math.min(danger2, danger3) > danger1) return findDirection(position, new Point2D.Double(new_x1, new_y1));
+//	    return findDirection(position, new Point2D.Double(new_x3, new_y3));
+//	    
+//	}
 	
 	private Direction goToBoat() {
 		if(position.equals(new Point2D.Double(0, 0))){
@@ -767,15 +740,8 @@ public class G4Diver extends Player {
 		return getNeighbor(position, safest);
 	}
 	
-	/* (non-Javadoc)
-	 * @see isnork.sim.Player#getMove()
-	 */
 	@Override
 	public Direction getMove() {
-//		System.out.println(ClusteringStrategy.getInstance().toString());
-//		System.out.println(" ------------------------- " + getId());
-//		Direction d = strategy.getMove(getId());
-//		System.out.println(" ------------------------- getMove - " + getId() + " -DIR- " + d);
 		double endGameFactor = dimension;
 		Direction dir = null;
 		try {
@@ -789,7 +755,6 @@ public class G4Diver extends Player {
 					return findDirection(position, new Point2D.Double(0,0));
 				}
 				return goToBoat();
-				//return findDirection(position, new Point2D.Double(0, 0));
 			}
 //			if(boardVeryDangerous){
 //				dir=getSafestForVeryDangerousBoards();
@@ -798,9 +763,13 @@ public class G4Diver extends Player {
 				dir=getSafestForVeryVeryDangerousBoards();
 			} 
 			else {
-				dir = getSafest();
+				dir = getSafest(true);
+//				if(currentRound < 150){
+//					dir = getSafest(true);
+//				} else {
+//					dir = getSafest(false);
+//				}
 			}
-//			dir = getSafest();
 			previousDirections.add(dir);
 			if(previousDirections.size() > 30){
 				List<Direction> lastFiveDirections  = new ArrayList<Direction>(previousDirections.subList(previousDirections.size()-5, previousDirections.size()-1));

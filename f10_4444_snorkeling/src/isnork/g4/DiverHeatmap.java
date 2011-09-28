@@ -160,6 +160,7 @@ public class DiverHeatmap {
 		stationaryCreatures.put(o.getId(), new StationaryCreature((int) pos.getX(), (int) pos.getY(), o));
 //		System.out.println(" registered " + o.getId());
 	}
+	
 	public void registerMoving(Observation o) {
 		invalidateDanger();
 
@@ -318,6 +319,15 @@ public class DiverHeatmap {
 	}
 	
 	public double getHappyInQuadrant(Direction dir){
+		
+//		for (int i = -dimension; i <= dimension; i++) {
+//			for (int j = -dimension; j <= dimension; j++) {
+//				 double d = happyGet(i, j);
+//				 System.out.print(d + " ");
+//			}
+//			System.out.println();
+//		}
+		
 		double happyValue = 0;
 		if(dir==Direction.E){
 			for(int x=0; x<dimension; x++){
@@ -427,4 +437,6 @@ public class DiverHeatmap {
 //		
 //		return ret;
 //	}
+	
+	
 }
