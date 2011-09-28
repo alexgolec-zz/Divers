@@ -341,6 +341,11 @@ public class G4Diver extends Player {
 		}
 	}
 	
+	private void receiveMessage(iSnorkMessage message) {
+		Point pos = new Point((int) message.getLocation().getX(), (int) message.getLocation().getY());
+		heatmap.reportStationaryMessage(messageMap, message.getMsg(), pos);
+	}
+	
 	/* (non-Javadoc)
 	 * @see isnork.sim.Player#tick(java.awt.geom.Point2D, java.util.Set, java.util.Set, java.util.Set)
 	 */
@@ -362,6 +367,9 @@ public class G4Diver extends Player {
 		
 		// Notify the heatmap of stationary creatures
 		registerWithHeatmap(justCreatures);
+		for (iSnorkMessage m: incomingMessages) {
+			receiveMessage(m);
+		}
 		// Select which species to dispatch a report on
 		String speciesToReport = chooseSpeciesToReport(justCreatures);
 		// Map the species to a string message
@@ -766,6 +774,7 @@ public class G4Diver extends Player {
 				safestDanger = potentialDanger;
 			}
 		}
+		
 		pointPool.reset();
 //		System.out.println("safets = " + safest);
 		return getNeighbor(position, safest);
@@ -788,6 +797,9 @@ public class G4Diver extends Player {
 				return goToBoat();
 			}
 //			System.out.println(boardVeryDangerous + "," + boardVeryVeryDangerous);
+			
+			// re-introduced boardVeryDangerous parameter. high overall score than previous implementation for dangerous boards. 
+			// finds safest path without rndom variable. 
 			if(boardVeryDangerous){
 //				dir = getSafest(true);
 				dir=getSafestForVeryDangerousBoards();
@@ -796,6 +808,8 @@ public class G4Diver extends Player {
 				dir=getSafestForVeryVeryDangerousBoards();
 			} 
 			else {
+				// currently communication(Happy Map) is not included in the game
+				//comment the next line and include the commented lines to include communication in the game
 				dir = getSafest(true);
 //				if(currentRound < 150){
 //					dir = getSafest(true);

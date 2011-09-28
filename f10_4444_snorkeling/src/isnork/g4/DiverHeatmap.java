@@ -1,6 +1,7 @@
 package isnork.g4;
 
 import isnork.g4.util.MarkovSimulator;
+import isnork.g4.util.MessageMap;
 import isnork.sim.GameObject.Direction;
 import isnork.sim.Observation;
 import isnork.sim.SeaLifePrototype;
@@ -19,7 +20,7 @@ public class DiverHeatmap {
 	/** Mapping from id of observation to creature. */
 	private Hashtable<Integer, StationaryCreature> stationaryCreatures;
 	private Hashtable<Integer, MobileCreature> movingCreatures;
-	private Hashtable<Integer, StationaryCreature> stationaryReports;
+	private Hashtable<String, HashSet<CreatureReport>> stationaryReports;
 	private HashSet<Point> seenPoints;
 	private int radius;
 	
@@ -78,6 +79,21 @@ public class DiverHeatmap {
 		dangerRadius[6] = new Point(-1, -1);
 		dangerRadius[7] = new Point(0, -1);
 		dangerRadius[8] = new Point(1, -1);
+	}
+	
+	private class CreatureReport {
+		public Point reportPos;
+		public final SeaLifePrototype proto;
+		
+		public CreatureReport(int x, int y, SeaLifePrototype proto) {
+			reportPos = new Point(x, y);
+			this.proto = proto;
+		}
+		
+		public boolean equal(CreatureReport o1) {
+			return o1.reportPos.equals(reportPos) && 
+					o1.proto.equals(proto);
+		}
 	}
 	
 	/**
@@ -140,7 +156,7 @@ public class DiverHeatmap {
 		this.dimension = dimension;
 		stationaryCreatures = new Hashtable<Integer, StationaryCreature>();
 		movingCreatures = new Hashtable<Integer, MobileCreature>();
-		stationaryReports = new Hashtable<Integer, StationaryCreature>();
+		stationaryReports = new Hashtable<String, HashSet<CreatureReport>>();
 		seenPoints = new HashSet<Point>();
 		radius = rad;
 	}
@@ -179,13 +195,29 @@ public class DiverHeatmap {
 		}
 	}
 	
-	public void reportStationaryMessage(Observation o) {
-		if (stationaryReports.contains(o.getId())) {
+	public void reportStationaryMessage(MessageMap map, String message, Point location) {
+//		System.out.println("Received message "+message);
+		
+		if (message.toLowerCase().equals("z")) {
 			return;
 		}
-		invalidateHappiness();
-		stationaryReports.put(o.getId(),
-				new StationaryCreature((int) o.getLocation().getX(), (int) o.getLocation().getY(), o)); 
+		
+		// Except for z, there is exactly one species per message
+		String species = map.decode(message).iterator().next();
+		CreatureReport r = new CreatureReport(location.x, location.y, G4Diver.getProtoFromName(species));
+		
+		HashSet<CreatureReport> reps = stationaryReports.get(r.proto.getName());
+		if (reps == null) {
+			reps = new HashSet<DiverHeatmap.CreatureReport>();
+			stationaryReports.put(r.proto.getName(), reps);
+		}
+
+		if (reps.contains(r)) {
+			return;
+		} else {
+			invalidateHappiness();
+			reps.add(r);
+		}
 	}
 	
 	/**
@@ -250,9 +282,6 @@ public class DiverHeatmap {
 			return;
 		}
 		
-//		int size = 2 * dimension + 1;
-//		danger = new double[size][size];
-		
 		for (Integer s: stationaryCreatures.keySet()) {
 			putStationaryCreature(stationaryCreatures.get(s));
 		}
@@ -277,13 +306,18 @@ public class DiverHeatmap {
 			return;
 		}
 		
-		for (Integer k: stationaryReports.keySet()) {
-			StationaryCreature s = stationaryReports.get(k);
-			placeStationaryHappiness(radius, s);
+		for (String species: stationaryReports.keySet()) {
+			HashSet<CreatureReport> reps = stationaryReports.get(species);
+			if (reps == null) {
+				continue;
+			}
+			for (CreatureReport r: reps) {
+				placeStationaryHappiness(radius, r);
+			}
 		}
 	}
 	
-	private void placeStationaryHappiness(int radius, StationaryCreature c) {
+	private void placeStationaryHappiness(int radius, CreatureReport c) {
 		int squares = 0;
 		for (int i = -radius; i <= radius; i++) {
 			for (int j = -radius; j <= radius; j++) {
@@ -291,7 +325,7 @@ public class DiverHeatmap {
 					continue;
 				}
 				
-				if (seenPoints.contains(new Point(c.pos.x + i, c.pos.y + j))) {
+				if (seenPoints.contains(new Point(c.reportPos.x + i, c.reportPos.y + j))) {
 					continue;
 				}
 				
@@ -305,17 +339,30 @@ public class DiverHeatmap {
 					continue;
 				}
 				
-				if (seenPoints.contains(new Point(c.pos.x + i, c.pos.y + j))) {
+				if (seenPoints.contains(new Point(c.reportPos.x + i, c.reportPos.y + j))) {
 					continue;
 				}
 				
-				happySet(c.pos.x + i, c.pos.y +j, diffuseHappiness);
+				try {
+					happySet(c.reportPos.x + i, c.reportPos.y +j, diffuseHappiness);
+				} catch (ArrayIndexOutOfBoundsException e) {
+					continue;
+				}
 			}
 		}
 	}
 	
-	public void reportMove(Point m) {
-		seenPoints.add(m);
+	public void reportLocation(Point2D m) {
+		Point p = new Point((int) m.getX(), (int) m.getY());
+		seenPoints.add(p);
+		refreshHappiness();
+		for (int i = 0; i < happiness.length; i++) {
+			for (int j = 0; j < happiness[0].length; j++) {
+				System.out.print(" "+happiness[i][j]);
+			}
+			System.out.println();
+		}
+		System.exit(1);
 	}
 	
 	public double getHappyInQuadrant(Direction dir){
@@ -404,7 +451,7 @@ public class DiverHeatmap {
 				}
 			}
 		}
-		System.out.println(" happy for " + dir + " is " + happyValue);
+//		System.out.println(" happy for " + dir + " is " + happyValue);
 		return happyValue;
 	}
 	
